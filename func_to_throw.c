@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 00:14:20 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/12/22 21:28:22 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/12/22 22:10:53 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_boolean	get_text_buff(t_game *game)
 	game->texture.we.text_color = ft_calloc(game->texture.we.height
 			* game->texture.we.width, sizeof(mlx_color));
 	if (!game->texture.no.text_color || !game->texture.so.text_color
-			|| !game->texture.ea.text_color || !game->texture.we.text_color)
+		|| !game->texture.ea.text_color || !game->texture.we.text_color)
 	{
 		clear_buffers(game->texture);
 		return (FALSE);
