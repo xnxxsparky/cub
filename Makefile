@@ -6,7 +6,7 @@
 #    By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/17 01:17:51 by bcausseq          #+#    #+#              #
-#    Updated: 2025/12/18 15:58:17 by bcausseq         ###   ########.fr        #
+#    Updated: 2025/12/22 22:55:30 by bcausseq         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 CC 			= cc
@@ -67,19 +67,24 @@ RESET = \033[0m
 
 all:					$(NAME)
 
-$(NAME):				$(OBJ)
+$(MLX_PATH):
+	@if [ ! -d "$(MLX_PATH)" ]; then \
+		git clone https://github.com/Seekrs/MacroLibX $(MLX_PATH); \
+	fi
+
+$(NAME):				$(OBJ) | $(MLX_PATH)
 	@make --no-print-directory -C $(LIBFT)
 	@make --no-print-directory -C $(MLX_PATH) -j
 	@$(CC) $(CFLAGS) -o $@ $^ $(LIBFT_LIB) $(MLX) -lSDL2 -lm
 
-$(OBJ_DIR)/manda/%.o:	%.c
+$(OBJ_DIR)/manda/%.o:	%.c | $(MLX_PATH)
 	@mkdir -p $(@D)
-	@$(CC) $(CFLAGS) -I$(LIBFT) -I$(HEADER) -c $< -o $@
+	@$(CC) $(CFLAGS) -I$(LIBFT) -I$(HEADER) -I$(MLX_INC) -c $< -o $@
 
 clean:
 	@echo "$(YELLOW)🧹 Cleaning object files...$(RESET)"
 	@make --no-print-directory -C $(LIBFT) clean
-# 	@make --no-print-directory -C $(MLX_PATH) clean
+	@make --no-print-directory -C $(MLX_PATH) clean
 	@rm -f $(OBJ)
 	@rm -rf $(OBJ_DIR)
 	@echo "$(GREEN)✨ Clean completed!$(RESET)"
@@ -87,7 +92,7 @@ clean:
 fclean:					clean
 	@echo "$(YELLOW)🗑️  Full clean in progress...$(RESET)"
 	@make --no-print-directory -C $(LIBFT) fclean
-# 	@make --no-print-directory -C $(MLX_PATH) fclean
+	@make --no-print-directory -C $(MLX_PATH) fclean
 	@rm -f $(NAME)
 	@echo "$(GREEN)💀 Everything purged from Hell!$(RESET)"
 
