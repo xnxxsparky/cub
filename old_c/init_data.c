@@ -1,37 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_error.c                                      :+:      :+:    :+:   */
+/*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/18 21:04:49 by salabbe           #+#    #+#             */
-/*   Updated: 2025/12/22 21:38:56 by bcausseq         ###   ########.fr       */
+/*   Created: 2025/12/18 21:04:06 by salabbe           #+#    #+#             */
+/*   Updated: 2025/12/18 21:05:34 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	free_errs(t_game *game)
+int	init_data(t_game *game)
 {
-	int	i;
-
-	if (game->map.map)
+	game->map.map = get_map(game->fd, &(game->map.width));
+	close(game->fd);
+	if (game->map.map == NULL)
+		return (1);
+	if (define_data_map(game) == 1)
 	{
-		i = -1;
-		while (game->map.map[++i])
-			free(game->map.map[i]);
-		free(game->map.map);
+		utl_super_free((void **)game->map.map);
+		return (1);
 	}
-}
-
-void	error(char *type, char *arg, t_game *game, t_boolean free_n)
-{
-	ft_fprintf(2, "%s ", type);
-	if (arg)
-		ft_fprintf(2, "\"%s\"\n", arg);
-	if (free_n)
-		free_data_texture(&(game->colors), &(game->texture));
-	free_errs(game);
-	exit (1);
+	if (check_textures_paths(&game->texture) == 1)
+	{
+		utl_super_free((void **)game->map.map);
+		free_data_texture(&game->colors, &game->texture);
+		return (1);
+	}
+	return (0);
 }

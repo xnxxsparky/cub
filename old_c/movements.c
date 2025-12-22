@@ -1,0 +1,106 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   movements.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/11 00:20:28 by bcausseq          #+#    #+#             */
+/*   Updated: 2025/12/18 21:49:14 by bcausseq         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "cub3d.h"
+
+void	rotate(t_game *game)
+{
+	float	angle;
+	float	old_dir_x;
+	float	old_cam_x;
+
+	angle = 0.0f;
+	old_dir_x = 0.0f;
+	old_cam_x = 0.0f;
+	if (game->ctrl.l)
+		angle = ROT_SPEED;
+	if (game->ctrl.r)
+		angle = -ROT_SPEED;
+	old_dir_x = game->player.dir_x;
+	old_cam_x = game->player.cam_x;
+	game->player.dir_x = game->player.dir_x * cos(angle)
+		- game->player.dir_y * sin(angle);
+	game->player.dir_y = old_dir_x * sin(angle)
+		+ game->player.dir_y * cos(angle);
+	game->player.cam_x = game->player.cam_x * cos(angle)
+		- game->player.cam_y * sin(angle);
+	game->player.cam_y = old_cam_x * sin(angle)
+		+ game->player.cam_y * cos(angle);
+}
+
+void	cross_pad(t_game *game, float *move_x, float *move_y)
+{
+	if (game->ctrl.w)
+	{
+		(*move_x) += game->player.dir_x * MOV_SPEED;
+		(*move_y) += game->player.dir_y * MOV_SPEED;
+	}
+	if (game->ctrl.s)
+	{
+		(*move_x) -= game->player.dir_x * MOV_SPEED;
+		(*move_y) -= game->player.dir_y * MOV_SPEED;
+	}
+	if (game->ctrl.d)
+	{
+		(*move_x) += game->player.cam_x * MOV_SPEED;
+		(*move_y) += game->player.cam_y * MOV_SPEED;
+	}
+	if (game->ctrl.a)
+	{
+		(*move_x) -= game->player.cam_x * MOV_SPEED;
+		(*move_y) -= game->player.cam_y * MOV_SPEED;
+	}
+}
+
+void	border_check(t_game *game, float new_x, float new_y)
+{
+	if (new_x >= 0 && new_x < game->map.width)
+	{
+		if (game->map.data_map[(int)game->player.pos_y][(int)new_x] != '1')
+			game->player.pos_x = new_x;
+	}
+	if (new_y >= 0 && new_y < game->map.height)
+	{
+		if (game->map.data_map[(int)new_y][(int)game->player.pos_x] != '1')
+			game->player.pos_y = new_y;
+	}
+	if (new_x >= 0 && new_x < game->map.width
+		&& new_y >= 0 && new_y < game->map.height)
+	{
+		if (game->map.data_map[(int)new_y][(int)new_x] != '1')
+		{
+			game->player.pos_x = new_x;
+			game->player.pos_y = new_y;
+		}
+	}
+}
+
+void	move(t_game *game)
+{
+	float	new_x;
+	float	new_y;
+	float	move_x;
+	float	move_y;
+
+	new_x = 0.0f;
+	new_y = 0.0f;
+	move_x = 0.0f;
+	move_y = 0.0f;
+	cross_pad(game, &move_x, &move_y);
+	rotate(game);
+	if (move_x != 0.0f || move_y != 0.0f)
+	{
+		new_x = game->player.pos_x + move_x;
+		new_y = game->player.pos_y + move_y;
+		border_check(game, new_x, new_y);
+	}
+}

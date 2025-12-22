@@ -1,37 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_error.c                                      :+:      :+:    :+:   */
+/*   init_textures.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/18 21:04:49 by salabbe           #+#    #+#             */
-/*   Updated: 2025/12/22 21:38:56 by bcausseq         ###   ########.fr       */
+/*   Created: 2025/12/18 21:04:21 by salabbe           #+#    #+#             */
+/*   Updated: 2025/12/18 21:05:34 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	free_errs(t_game *game)
+void	init_textures(t_game *game)
 {
-	int	i;
-
-	if (game->map.map)
-	{
-		i = -1;
-		while (game->map.map[++i])
-			free(game->map.map[i]);
-		free(game->map.map);
-	}
-}
-
-void	error(char *type, char *arg, t_game *game, t_boolean free_n)
-{
-	ft_fprintf(2, "%s ", type);
-	if (arg)
-		ft_fprintf(2, "\"%s\"\n", arg);
-	if (free_n)
-		free_data_texture(&(game->colors), &(game->texture));
-	free_errs(game);
-	exit (1);
+	game->texture.no.path = NULL;
+	game->texture.so.path = NULL;
+	game->texture.ea.path = NULL;
+	game->texture.we.path = NULL;
 }

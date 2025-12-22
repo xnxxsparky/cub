@@ -6,13 +6,13 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/18 21:05:17 by salabbe           #+#    #+#             */
-/*   Updated: 2025/12/22 21:40:05 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/12/18 21:05:34 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-char	**get_map(int fd, int *width, t_game *game)
+char	**get_map(int fd, int *width)
 {
 	char	**map;
 	char	*line;
@@ -21,7 +21,7 @@ char	**get_map(int fd, int *width, t_game *game)
 	line = get_next_line(fd);
 	if (line == NULL)
 	{
-		error(MAP, NULL, game, FALSE);
+		error(MAP, NULL);
 		return (NULL);
 	}
 	(*width) = ft_strlen(line);

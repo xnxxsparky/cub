@@ -6,11 +6,34 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 00:14:20 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/12/22 21:28:22 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/12/18 21:52:12 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+char	**dup_map(void)
+{
+	char	**ret;
+	int		x;
+	int		y;
+
+	x = -1;
+	y = -1;
+	ret = ft_calloc(9, sizeof(char *));
+	if (!ret)
+		return (NULL);
+	while (++y < 8)
+	{
+		ret[y] = ft_calloc(9, sizeof(char));
+		if (!ret[y])
+			return (NULL);
+		while (++x < 8)
+			ret[y][x] = g_arr_test[y][x];
+		x = 0;
+	}
+	return (ret);
+}
 
 void	clear_buffers(t_texture texture)
 {

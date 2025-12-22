@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/18 21:05:44 by salabbe           #+#    #+#             */
-/*   Updated: 2025/12/22 21:39:49 by bcausseq         ###   ########.fr       */
+/*   Updated: 2025/12/18 21:05:48 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ static int	init_all(t_game *game)
 	return (0);
 }
 
-static int	check_args(int ac, char **av, t_game *game)
+static int	check_args(int ac, char **av)
 {
 	if (ac != 2)
-		error(ARGS, NULL, game, FALSE);
+		error(ARGS, NULL);
 	else if (check_name_file(av[1]) == 1)
-		error(EXTENSION, av[1], game, FALSE);
+		error(EXTENSION, av[1]);
 	else
 		return (0);
 	return (1);
@@ -37,9 +37,9 @@ int	main(int ac, char **av)
 	t_game	game;
 
 	ft_bzero(&game, sizeof(t_game));
-	if (check_args(ac, av, &game) == 1)
+	if (check_args(ac, av) == 1)
 		return (1);
-	game.fd = get_fd(av[1], &game);
+	game.fd = get_fd(av[1]);
 	if (game.fd == -1)
 		return (1);
 	if (init_all(&game) == 1)
