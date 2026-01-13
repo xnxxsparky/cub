@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 00:25:45 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/12/18 22:11:14 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/01/13 18:38:27 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,14 +108,13 @@ void	cast_rays(void *param)
 	ft_bzero(&ray, sizeof(t_ray));
 	mlx_clear_window(game->mlx_ctx.mlx_ctx, game->mlx_ctx.win,
 		(mlx_color){.rgba = 0x000000FF});
+	draw_bg(game);
 	move(game);
 	while (x < WIDTH)
 	{
 		init_ray(game, &ray, x);
 		dda_algorithm(game, &ray);
 		calc_wall_distance(game, &ray);
-// 		draw_ceiling(game, ray, x, game->mlx_ctx.buf);
-// 		draw_floor(game, ray, x, game->mlx_ctx.buf);
 		draw_wall(game, &ray, x, game->mlx_ctx.buf);
 		x++;
 	}

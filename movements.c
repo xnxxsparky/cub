@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 00:20:28 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/12/18 21:49:14 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/01/13 15:54:13 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ void	rotate(t_game *game)
 	old_dir_x = 0.0f;
 	old_cam_x = 0.0f;
 	if (game->ctrl.l)
-		angle = ROT_SPEED;
-	if (game->ctrl.r)
 		angle = -ROT_SPEED;
+	if (game->ctrl.r)
+		angle = ROT_SPEED;
 	old_dir_x = game->player.dir_x;
 	old_cam_x = game->player.cam_x;
 	game->player.dir_x = game->player.dir_x * cos(angle)

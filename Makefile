@@ -6,7 +6,7 @@
 #    By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/17 01:17:51 by bcausseq          #+#    #+#              #
-#    Updated: 2025/12/22 22:55:30 by bcausseq         ###   ########.fr        #
+#    Updated: 2026/01/13 17:37:22 by bcausseq         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 CC 			= cc
@@ -92,7 +92,7 @@ clean:
 fclean:					clean
 	@echo "$(YELLOW)🗑️  Full clean in progress...$(RESET)"
 	@make --no-print-directory -C $(LIBFT) fclean
-	@make --no-print-directory -C $(MLX_PATH) fclean
+	#@make --no-print-directory -C $(MLX_PATH) fclean
 	@rm -f $(NAME)
 	@echo "$(GREEN)💀 Everything purged from Hell!$(RESET)"
 

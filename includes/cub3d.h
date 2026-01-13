@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 20:20:54 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/12/18 22:14:01 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/01/13 18:30:31 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,37 +19,26 @@
 # include <stdint.h>
 
 # include "../libft/includes/libft.h"
-# include "../MLX/includes/mlx.h"
-# include "../MLX/includes/mlx_extended.h"
+# include "mlx.h"
+# include "mlx_extended.h"
 
-# define EXTENSION "Error : INVALID FILE EXTENSION\nUSAGE : exemple_map[.cub]"
-# define BAD_FILE "Error : ISSUE REGARDING FILE :"
-# define DIRECTORY "Error : FORMAT IS A DIRECTORY :"
-# define MAP "Error : INVALID DATA MAP"
-# define ARGS "Error : INVALID ARGUMENT\nUSAGE : ./cub3d [map.cub]"
-# define MLX "Error : ISSUE REGARDING MLX"
-# define COLORS "ERROR : INVALID COLOR(S)"
+# define EXTENSION "Error : INVALID FILE EXTENSION\nUSAGE : exemple_map[.cub]\n"
+# define BAD_FILE "Error : ISSUE REGARDING FILE :\n"
+# define DIRECTORY "Error : FORMAT IS A DIRECTORY :\n"
+# define MAP "Error : INVALID DATA MAP\n"
+# define ARGS "Error : INVALID ARGUMENT\nUSAGE : ./cub3d [map.cub]\n"
+# define MLX "Error : ISSUE REGARDING MLX\n"
+# define COLORS "ERROR : INVALID COLOR(S)\n"
 
 # define WIDTH 1280
 # define HEIGHT 720
 # define FALSE '\0'
 # define TRUE 'Y'
 # define MOV_SPEED 0.025f
-# define ROT_SPEED 0.03f
+# define ROT_SPEED 0.015f
+# define THICKNESS 0.5f
 
 typedef char	t_boolean;
-
-static const char	*g_arr_test[] =
-{
-	"11111111",
-	"10000001",
-	"10000001",
-	"10011001",
-	"10011001",
-	"10000001",
-	"1000N001",
-	"11111111"
-};
 
 typedef struct s_ray
 {
@@ -231,6 +220,9 @@ cast_rays(void *param);
 void
 get_player(t_map *map, t_player *player);
 
+void
+draw_bg(t_game *game);
+
 /************************************************************/
 /*                    Salabbe's Functions                   */
 /************************************************************/
@@ -239,10 +231,10 @@ void			init_colors(t_game *game);
 int				init_data(t_game *game);
 void			init_textures(t_game *game);
 int				parse_colors(t_colors *colors);
-void			error(char *type, char *arg);
+void			error(char *type, char *arg, t_game *game, t_boolean free_n);
 int				check_name_file(char *filename);
-int				get_fd(char *filename);
-char			**get_map(int fd, int *width);
+int				get_fd(char *filename, t_game *game);
+char			**get_map(int fd, int *width, t_game *game);
 char			**get_data_map(char**map, int start, int *width);
 void			free_data_texture(t_colors *colors, t_texture *textures);
 int				define_data_map(t_game *game);
@@ -251,6 +243,6 @@ int				check_colors(t_colors *colors);
 int				ischarset(char *set, char c);
 void			skip_blank(char **map, int *start);
 int				count_lines(char **tab);
-int				check_textures_paths(t_texture *textures);
+int				check_textures_paths(t_texture *textures, t_game *game);
 
 #endif

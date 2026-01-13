@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 00:09:37 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/12/18 22:23:17 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/01/13 18:30:19 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ t_boolean	check_value(t_game *game, t_ray *ray, int mod)
 	}
 	else if (mod == 1)
 	{
-		if ((ray->side_hit == 0 && ray->dir_x > 0)
-			|| (ray->side_hit == 1 && ray->dir_y < 0))
+		if (!((ray->side_hit == 0 && ray->dir_x > 0)
+				|| (ray->side_hit == 1 && ray->dir_y < 0)))
 			game->cur_text.tex_x = game->cur_text.texture->width
 				- game->cur_text.tex_x - 1;
 		if (game->cur_text.tex_x < 0)
@@ -53,4 +53,22 @@ t_boolean	check_value(t_game *game, t_ray *ray, int mod)
 			game->cur_text.tex_x = game->cur_text.texture->width - 1;
 	}
 	return (TRUE);
+}
+
+void	draw_bg(t_game *game)
+{
+	int	height;
+
+	height = -1;
+	while (++height < (HEIGHT * WIDTH) / 2)
+	{
+		game->mlx_ctx.buf[height] = game->colors.ceiling;
+		game->mlx_ctx.buf[height].a = 255;
+	}
+	--height;
+	while (++height < HEIGHT * WIDTH)
+	{
+		game->mlx_ctx.buf[height] = game->colors.floor;
+		game->mlx_ctx.buf[height].a = 255;
+	}
 }

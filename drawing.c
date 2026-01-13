@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 00:07:21 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/12/18 22:14:38 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/01/13 18:38:27 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	draw_floor(t_game *game, int x, mlx_color *colors)
 		colors[y * WIDTH + x].r = game->colors.floor.r;
 		colors[y * WIDTH + x].g = game->colors.floor.g;
 		colors[y * WIDTH + x].b = game->colors.floor.b;
-// 		colors[y * WIDTH + x].a = 1;
 	}
 }
 
@@ -38,7 +37,6 @@ void	draw_ceiling(t_game *game, int x, mlx_color *colors)
 		colors[y * WIDTH + x].r = game->colors.ceiling.r;
 		colors[y * WIDTH + x].g = game->colors.ceiling.g;
 		colors[y * WIDTH + x].b = game->colors.ceiling.b;
-// 		colors[y * WIDTH + x].a = 1;
 	}
 }
 
@@ -88,8 +86,6 @@ void	draw_wall(t_game *game, t_ray *ray, int x, mlx_color *colors)
 	game->cur_text.tex_pos = (game->cur_text.draw_start - HEIGHT / 2
 			+ game->cur_text.line_height / 2) * game->cur_text.step;
 	game->cur_text.y = game->cur_text.draw_start - 1;
-	draw_ceiling(game, x, colors);
-	draw_floor(game, x, colors);
 	while (++(game->cur_text.y) < game->cur_text.draw_end
 		&& game->cur_text.y < HEIGHT)
 		wall_draw(game, x, colors);
