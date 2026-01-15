@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 20:20:54 by bcausseq          #+#    #+#             */
-/*   Updated: 2026/01/13 18:30:31 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/01/15 18:14:55 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@
 # define TRUE 'Y'
 # define MOV_SPEED 0.025f
 # define ROT_SPEED 0.015f
-# define THICKNESS 0.5f
+# define THICKNESS 0.25f
+# define NEW_X 0b01
+# define NEW_Y 0b10
+# define NEW_BOTH NEW_X | NEW_Y
 
 typedef char	t_boolean;
 

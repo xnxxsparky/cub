@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 00:20:28 by bcausseq          #+#    #+#             */
-/*   Updated: 2026/01/13 15:54:13 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/01/15 18:22:26 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,22 +61,50 @@ void	cross_pad(t_game *game, float *move_x, float *move_y)
 	}
 }
 
+t_boolean	collides(char **data_map, int type, float y_pos, float x_pos)
+{
+	if (type & NEW_BOTH)
+	{
+		if (data_map[(int)(y_pos + THICKNESS)][(int)(x_pos + THICKNESS)] == '1'
+			|| data_map[(int)(y_pos - THICKNESS)][(int)(x_pos - THICKNESS)]
+			== '1')
+			return (TRUE);
+		if (data_map[(int)(y_pos - THICKNESS)][(int)(x_pos + THICKNESS)] == '1'
+			|| data_map[(int)(y_pos + THICKNESS)][(int)(x_pos - THICKNESS)]
+			== '1')
+			return (TRUE);
+	}
+	else if (type & NEW_Y)
+	{
+		if (data_map[(int)(y_pos + THICKNESS)][(int)x_pos] == '1'
+			|| data_map[(int)(y_pos - THICKNESS)][(int)x_pos] == '1')
+			return (TRUE);
+	}
+	else if (type & NEW_X)
+	{
+		if (data_map[(int)y_pos][(int)(x_pos + THICKNESS)] == '1'
+			|| data_map[(int)y_pos][(int)(x_pos - THICKNESS)] == '1')
+			return (TRUE);
+	}
+	return (FALSE);
+}
+
 void	border_check(t_game *game, float new_x, float new_y)
 {
 	if (new_x >= 0 && new_x < game->map.width)
 	{
-		if (game->map.data_map[(int)game->player.pos_y][(int)new_x] != '1')
+		if (!collides(game->map.data_map, NEW_X, game->player.pos_y, new_x))
 			game->player.pos_x = new_x;
 	}
 	if (new_y >= 0 && new_y < game->map.height)
 	{
-		if (game->map.data_map[(int)new_y][(int)game->player.pos_x] != '1')
+		if (!collides(game->map.data_map, NEW_Y, new_y, game->player.pos_x))
 			game->player.pos_y = new_y;
 	}
 	if (new_x >= 0 && new_x < game->map.width
 		&& new_y >= 0 && new_y < game->map.height)
 	{
-		if (game->map.data_map[(int)new_y][(int)new_x] != '1')
+		if (!collides(game->map.data_map, NEW_BOTH, new_y, new_x))
 		{
 			game->player.pos_x = new_x;
 			game->player.pos_y = new_y;
