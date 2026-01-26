@@ -6,11 +6,11 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/18 21:05:44 by salabbe           #+#    #+#             */
-/*   Updated: 2025/12/22 21:39:49 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/01/24 21:52:51 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub3d_bonus.h"
 
 static int	init_all(t_game *game)
 {
@@ -56,7 +56,7 @@ int	main(int ac, char **av)
 		MLX_KEYDOWN, key_hooks_dwn, &game);
 	mlx_on_event(game.mlx_ctx.mlx_ctx, game.mlx_ctx.win,
 		MLX_KEYUP, key_hooks_up, &game);
-	mlx_add_loop_hook(game.mlx_ctx.mlx_ctx, cast_rays, &game);
+	mlx_add_loop_hook(game.mlx_ctx.mlx_ctx, update_state, &game);
 	mlx_loop(game.mlx_ctx.mlx_ctx);
 	free_game(&game);
 	return (0);

@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 20:20:54 by bcausseq          #+#    #+#             */
-/*   Updated: 2026/01/22 18:11:12 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/01/26 17:45:27 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef CUB3D_BONUS_H
+# define CUB3D_BONUS_H
 
 # include <fcntl.h>
 # include <SDL2/SDL_scancode.h>
@@ -39,8 +39,18 @@
 # define THICKNESS 0.25f
 # define NEW_X 0b01
 # define NEW_Y 0b10
+# define SENSITIVITY 0.0021f
 
 typedef char	t_boolean;
+
+typedef enum e_state_game
+{
+	NORMAL_STATE,
+	PAUSE_STATE,
+	MENU_STATE,
+	KEYBNG_STATE,
+	NONE_STATE
+}	t_state_game;
 
 typedef struct s_ray
 {
@@ -93,6 +103,7 @@ typedef struct s_texture
 	t_data_text	so;
 	t_data_text	ea;
 	t_data_text	we;
+	t_data_text	door;
 }	t_texture;
 
 typedef struct s_map
@@ -112,6 +123,7 @@ typedef struct s_ctrl
 	t_boolean	d;
 	t_boolean	l;
 	t_boolean	r;
+	t_boolean	oskour;
 }	t_ctrl;
 
 typedef struct s_current_texture
@@ -137,6 +149,15 @@ typedef struct s_colors
 	char		*c_ceiling;
 }	t_colors;
 
+typedef struct s_mouse
+{
+	int			x;
+	int			y;
+	int			old_x;
+	int			old_y;
+	t_boolean	captured;
+}	t_mouse;
+
 typedef struct s_game
 {
 	t_texture			texture;
@@ -146,9 +167,28 @@ typedef struct s_game
 	t_mlx				mlx_ctx;
 	t_ctrl				ctrl;
 	t_colors			colors;
+	t_mouse				mouse;
+	t_state_game		curr_state;
 	int					fd;
 	char				*filename;
 }	t_game;
+
+typedef struct s_buttons
+{
+	char	*text;
+	int		x;
+	int		y;
+	mlx_color	normal;
+	mlx_color	hover;
+	void		(*action)(t_game *game);
+}	t_buttons;
+
+typedef struct s_menu
+{
+	t_buttons	*buttons;
+	int			nb_buttons;
+	int			index_select;
+}	t_menu;
 
 void
 draw_floor(t_game *game, int x, mlx_color *colors);
@@ -246,5 +286,25 @@ int				ischarset(char *set, char c);
 void			skip_blank(char **map, int *start);
 int				count_lines(char **tab);
 int				check_textures_paths(t_texture *textures, t_game *game);
+
+int				check_door(t_texture *texture);
+int				set_data_all(t_game *game, int i, int j);
+
+/*Bonuses*/
+
+void
+init_mouse(t_game *game);
+
+void
+update_mouse(t_game *game);
+
+void
+rotate_player(t_game *game, float angle);
+
+void
+menu_draw(t_game *game);
+
+void
+update_state(void *param);
 
 #endif

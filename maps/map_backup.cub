@@ -5,6 +5,7 @@ EA ./textures/EA.jpg
 
 F 0,255,1
 C 0,100,255
+D ./textures/door.jpg
 
 11111111
 10000001
