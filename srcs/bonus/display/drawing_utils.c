@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 00:09:37 by bcausseq          #+#    #+#             */
-/*   Updated: 2026/01/26 17:45:28 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/02/04 20:11:11 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,17 @@
 
 t_data_text	*get_cur_text(t_game *game, t_ray *ray)
 {
+	if (ray->hit_type == HIT_DOOR)
+		return (&game->texture.door);
 	if (ray->side_hit == 0)
 	{
 		if (ray->step_x > 0)
 			return (&game->texture.ea);
-		else
-			return (&game->texture.we);
+		return (&game->texture.we);
 	}
-	else
-	{
-		if (ray->step_y > 0)
-			return (&game->texture.so);
-		else
-			return (&game->texture.no);
-	}
+	if (ray->step_y > 0)
+		return (&game->texture.so);
+	return (&game->texture.no);
 }
 
 t_boolean	check_value(t_game *game, t_ray *ray, int mod)
@@ -71,4 +68,35 @@ void	draw_bg(t_game *game)
 		game->mlx_ctx.buf[height] = game->colors.floor;
 		game->mlx_ctx.buf[height].a = 255;
 	}
+}
+
+void	dda_step(t_ray *ray)
+{
+	if (ray->dist_side_x < ray->dist_side_y)
+	{
+		ray->dist_side_x += ray->delta_dist_x;
+		ray->map_x += ray->step_x;
+		ray->side_hit = 0;
+	}
+	else
+	{
+		ray->dist_side_y += ray->delta_dist_y;
+		ray->map_y += ray->step_y;
+		ray->side_hit = 1;
+	}
+}
+
+int	is_hit(t_game *game, t_ray *ray)
+{
+	char	tile;
+
+	if (ray->map_x < 0 || ray->map_x >= game->map.width
+		|| ray->map_y < 0 || ray->map_y >= game->map.height)
+		return (HIT_WALL);
+	tile = game->map.data_map[ray->map_y][ray->map_x];
+	if (tile == '1')
+		return (HIT_WALL);
+	if (tile == 'D')
+		return (HIT_DOOR);
+	return (HIT_NONE);
 }

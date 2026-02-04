@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_manda.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/18 21:05:44 by salabbe           #+#    #+#             */
-/*   Updated: 2026/01/28 22:11:48 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/01/28 13:56:33 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d_bonus.h"
+#include "cub3d.h"
 
 static int	init_all(t_game *game)
 {
@@ -53,10 +53,10 @@ int	main(int ac, char **av)
 	mlx_on_event(game.mlx_ctx.mlx_ctx, game.mlx_ctx.win,
 		MLX_WINDOW_EVENT, win_hooks, &game);
 	mlx_on_event(game.mlx_ctx.mlx_ctx, game.mlx_ctx.win,
-		MLX_KEYDOWN, state_key_hooks_dwn, &game);
+		MLX_KEYDOWN, key_hooks_dwn, &game);
 	mlx_on_event(game.mlx_ctx.mlx_ctx, game.mlx_ctx.win,
-		MLX_KEYUP, state_key_hooks_up, &game);
-	mlx_add_loop_hook(game.mlx_ctx.mlx_ctx, update_state, &game);
+		MLX_KEYUP, key_hooks_up, &game);
+	mlx_add_loop_hook(game.mlx_ctx.mlx_ctx, cast_rays, &game);
 	mlx_loop(game.mlx_ctx.mlx_ctx);
 	free_game(&game);
 	return (0);

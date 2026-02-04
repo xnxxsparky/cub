@@ -6,12 +6,11 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 21:46:42 by bcausseq          #+#    #+#             */
-/*   Updated: 2026/01/26 21:58:00 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/02/04 19:44:18 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
-#include "mlx.h"
 
 static t_boolean	init_mouse_pos(t_game *game, int c_x, int c_y)
 {
@@ -37,7 +36,7 @@ void	update_mouse(t_game *game)
 	delta = (c_x - game->mouse.old_x) * SENSITIVITY;
 	if (fabs(delta) > 0.001f)
 		rotate_player(game, delta);
-	if (!game->ctrl.oskour)
+	if (!game->ctrl.game.oskour.on)
 	{
 		mlx_mouse_move(game->mlx_ctx.mlx_ctx, game->mlx_ctx.win,
 			WIDTH / 2, HEIGHT / 2);

@@ -60,7 +60,8 @@ SRCS		= ft_strlen.c\
 			  ft_atoi.c\
 			  utl_super_free.c\
 			  ctn_strchr.c\
-			  str_llstr.c
+			  str_llstr.c\
+			  ft_memcpy.c
 
 FULL_SRCS	= $(foreach src,$(SRCS), $(firstword $(foreach dir,$(SRCS_DIRS),$(wildcard $(dir)/$(src)))))
 

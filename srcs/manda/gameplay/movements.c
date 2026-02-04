@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 00:20:28 by bcausseq          #+#    #+#             */
-/*   Updated: 2026/01/22 17:19:42 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/01/28 14:19:51 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	cross_pad(t_game *game, float *move_x, float *move_y)
 
 t_boolean	collides(char **data_map, int type, float y_pos, float x_pos)
 {
-	if (type & NEW_BOTH)
+	if (type & NEW_X && (type & NEW_Y))
 	{
 		if (data_map[(int)(y_pos + THICKNESS)][(int)(x_pos + THICKNESS)] == '1'
 			|| data_map[(int)(y_pos - THICKNESS)][(int)(x_pos - THICKNESS)]
@@ -104,7 +104,7 @@ void	border_check(t_game *game, float new_x, float new_y)
 	if (new_x >= 0 && new_x < game->map.width
 		&& new_y >= 0 && new_y < game->map.height)
 	{
-		if (!collides(game->map.data_map, NEW_BOTH, new_y, new_x))
+		if (!collides(game->map.data_map, (NEW_X | NEW_Y), new_y, new_x))
 		{
 			game->player.pos_x = new_x;
 			game->player.pos_y = new_y;

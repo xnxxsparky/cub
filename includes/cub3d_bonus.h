@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 20:20:54 by bcausseq          #+#    #+#             */
-/*   Updated: 2026/01/26 17:45:27 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/02/04 21:43:09 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,15 @@
 # define TRUE 'Y'
 # define MOV_SPEED 0.025f
 # define ROT_SPEED 0.015f
-# define THICKNESS 0.25f
+# define THICKNESS 0.125f
 # define NEW_X 0b01
 # define NEW_Y 0b10
 # define SENSITIVITY 0.0021f
+# define BUTT_Y 30
+# define BUTT_X 100
+# define HIT_NONE 0
+# define HIT_WALL 1
+# define HIT_DOOR 2
 
 typedef char	t_boolean;
 
@@ -48,7 +53,10 @@ typedef enum e_state_game
 	NORMAL_STATE,
 	PAUSE_STATE,
 	MENU_STATE,
-	KEYBNG_STATE,
+	KEYBNG_GAME_STATE,
+	KEYBNG_SETT_STATE,
+	WAITING_GAME_STATE,
+	WAITING_SETT_STATE,
 	NONE_STATE
 }	t_state_game;
 
@@ -67,6 +75,7 @@ typedef struct s_ray
 	int		side_hit;
 	float	perp_wall_dist;
 	float	wall_x;
+	int		hit_type;
 }	t_ray;
 
 typedef struct s_player
@@ -86,6 +95,7 @@ typedef struct s_mlx
 	mlx_window_create_info	win_infos;
 	mlx_image				img;
 	mlx_color				*buf;
+	mlx_color				*old_buf;
 }	t_mlx;
 
 typedef struct s_data_text
@@ -113,17 +123,44 @@ typedef struct s_map
 	int		height;
 	int		width;
 	char	spawn;
+	int		pos_door_x;
+	int		pos_door_y;
 }	t_map;
+
+typedef struct s_ctrl_ind
+{
+	t_boolean	on;
+	int			key;
+}	t_ctrl_ind;
+
+typedef struct s_ctrl_game
+{
+	t_ctrl_ind	w;
+	t_ctrl_ind	a;
+	t_ctrl_ind	s;
+	t_ctrl_ind	d;
+	t_ctrl_ind	l;
+	t_ctrl_ind	r;
+	t_ctrl_ind	oskour;
+	t_ctrl_ind	pause;
+	t_ctrl_ind	menu;
+	t_ctrl_ind	escape;
+}	t_ctrl_game;
+
+typedef struct s_ctrl_sett
+{
+	t_ctrl_ind	l;
+	t_ctrl_ind	r;
+	t_ctrl_ind	u;
+	t_ctrl_ind	d;
+	t_ctrl_ind	select;
+	t_ctrl_ind	ret;
+}	t_ctrl_sett;
 
 typedef struct s_ctrl
 {
-	t_boolean	w;
-	t_boolean	a;
-	t_boolean	s;
-	t_boolean	d;
-	t_boolean	l;
-	t_boolean	r;
-	t_boolean	oskour;
+	t_ctrl_game	game;
+	t_ctrl_sett	sett;
 }	t_ctrl;
 
 typedef struct s_current_texture
@@ -158,6 +195,13 @@ typedef struct s_mouse
 	t_boolean	captured;
 }	t_mouse;
 
+typedef struct s_menu
+{
+	struct s_buttons	*buttons;
+	int					nb_buttons;
+	int					index_select;
+}	t_menu;
+
 typedef struct s_game
 {
 	t_texture			texture;
@@ -169,26 +213,22 @@ typedef struct s_game
 	t_colors			colors;
 	t_mouse				mouse;
 	t_state_game		curr_state;
-	int					fd;
+	t_menu				menu;
+	t_menu				key_bind;
+	t_menu				set_bind;
 	char				*filename;
+	int					fd;
 }	t_game;
 
 typedef struct s_buttons
 {
-	char	*text;
-	int		x;
-	int		y;
+	char		*text;
+	int			y;
+	int			x;
 	mlx_color	normal;
 	mlx_color	hover;
 	void		(*action)(t_game *game);
 }	t_buttons;
-
-typedef struct s_menu
-{
-	t_buttons	*buttons;
-	int			nb_buttons;
-	int			index_select;
-}	t_menu;
 
 void
 draw_floor(t_game *game, int x, mlx_color *colors);
@@ -265,6 +305,92 @@ get_player(t_map *map, t_player *player);
 void
 draw_bg(t_game *game);
 
+/*Bonuses*/
+
+void
+init_mouse(t_game *game);
+
+void
+update_mouse(t_game *game);
+
+void
+rotate_player(t_game *game, float angle);
+
+void
+menu_draw(t_game *game);
+
+void
+update_state(void *param);
+
+void
+init_but(t_game *game);
+
+void
+state_key_hooks_dwn(int key, void *param);
+
+void
+state_key_hooks_up(int key, void *param);
+
+void
+init_keys(t_game *game);
+
+void
+key_bind(t_game *game);
+
+void
+init_keybinds(t_game *game);
+
+void
+but_display(t_game *game, t_menu menu);
+
+void
+keybind_draw(t_game *game);
+
+void
+ft_bufcpy(mlx_color *src, mlx_color *dest);
+
+void
+fifty_shade_of_grey(t_game *game);
+
+void
+handle_pause(t_game *game);
+
+void
+handle_menu(t_game *game);
+
+void
+state_key_hooks_dwn(int key, void *param);
+
+void
+waiting(int key, t_game *game);
+
+void
+keybind_key_hooks_dwn(int key, t_game *game);
+
+void
+game_key_hooks_dwn(int key, t_game *game);
+
+void
+menu_key_hooks_dwn(int key, t_game *game);
+
+void
+pause_key_hooks_dwn(int key, t_game *game);
+
+void
+ft_bufcpy(mlx_color *src, mlx_color *dest);
+
+void
+sett_keybind_draw(t_game *game);
+
+void
+sett_init_keybinds(t_game *game);
+
+void
+sett_waiting(int key, t_game *game);
+
+void
+sett_keybind_key_hooks_dwn(int key, t_game *game);
+
 /************************************************************/
 /*                    Salabbe's Functions                   */
 /************************************************************/
@@ -289,22 +415,8 @@ int				check_textures_paths(t_texture *textures, t_game *game);
 
 int				check_door(t_texture *texture);
 int				set_data_all(t_game *game, int i, int j);
-
-/*Bonuses*/
-
-void
-init_mouse(t_game *game);
-
-void
-update_mouse(t_game *game);
-
-void
-rotate_player(t_game *game, float angle);
-
-void
-menu_draw(t_game *game);
-
-void
-update_state(void *param);
+void			dda_step(t_ray *ray);
+int				is_hit(t_game *game, t_ray *ray);
+void			open_door(t_game *game, t_map *map, t_ray *ray);
 
 #endif

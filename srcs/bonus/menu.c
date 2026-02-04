@@ -6,34 +6,79 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 20:08:06 by bcausseq          #+#    #+#             */
-/*   Updated: 2026/01/26 18:20:17 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/01/31 02:05:21 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
+#include "mlx.h"
 
-void	menu_draw(t_game *game)
+void	quit(t_game *game)
+{
+	mlx_loop_end(game->mlx_ctx.mlx_ctx);
+}
+
+void	resume_game(t_game *game)
+{
+	game->curr_state = NORMAL_STATE;
+	mlx_mouse_hide(game->mlx_ctx.mlx_ctx);
+}
+
+void	init_but(t_game *game)
+{
+	const t_buttons	buttons[] = {
+	{"CONTINUE", HEIGHT / 4, WIDTH / 2, (mlx_color){.rgba = 0x333333FF},
+		(mlx_color){.rgba = 0x666666FF}, resume_game},
+	{"CUSTOM KEY", HEIGHT / 2, WIDTH / 2, (mlx_color){.rgba = 0x333333FF},
+		(mlx_color){.rgba = 0x666666FF}, key_bind},
+	{"QUIT", 3 * HEIGHT / 4, WIDTH / 2, (mlx_color){.rgba = 0x333333FF},
+		(mlx_color){.rgba = 0x666666FF}, quit}
+	};
+
+	game->menu.nb_buttons = 3;
+	game->menu.buttons = ft_calloc(3, sizeof(t_buttons));
+	if (!game->menu.buttons)
+		return ;
+	ft_memcpy(game->menu.buttons, buttons, sizeof(t_buttons) * 3);
+	game->menu.index_select = 0;
+}
+
+void	draw_but(t_buttons button, mlx_color *buf,
+		t_boolean selected, t_mlx mlx)
 {
 	int	x;
 	int	y;
 
-	if (game->curr_state != MENU_STATE)
-		return ;
-	x = -1;
-	y = -1;
-	mlx_clear_window(game->mlx_ctx.mlx_ctx, game->mlx_ctx.win,
-		(mlx_color){.rgba = 0x000000FF});
-	while (++y < HEIGHT)
+	y = button.y - BUTT_Y - 1;
+	while (++y < button.y + BUTT_Y)
 	{
-		while (++x < WIDTH)
+		x = button.x - BUTT_X - 1;
+		while (++x < button.x + BUTT_X)
 		{
-			if (y >= 0 && y < HEIGHT && x >= 0 && x < WIDTH)
-				game->mlx_ctx.buf[y * WIDTH + x].a = 0x88;
+			if (selected)
+				buf[y * WIDTH + x] = button.hover;
+			else
+				buf[y * WIDTH + x] = button.normal;
 		}
-		x = -1;
 	}
-	mlx_set_image_region(game->mlx_ctx.mlx_ctx, game->mlx_ctx.img,
-		0, 0, WIDTH, HEIGHT, game->mlx_ctx.buf);
-	mlx_put_image_to_window(game->mlx_ctx.mlx_ctx, game->mlx_ctx.win,
-		game->mlx_ctx.img, 0, 0);
+	mlx_string_put(mlx.mlx_ctx, mlx.win, button.x, button.y,
+		(mlx_color){.rgba = 0x000000FF}, button.text);
+}
+
+void	but_display(t_game *game, t_menu menu)
+{
+	int	i;
+
+	i = -1;
+	if (!menu.buttons)
+		return ;
+	while (++i < menu.nb_buttons)
+	{
+		if (i == menu.index_select)
+			draw_but(menu.buttons[i], game->mlx_ctx.buf,
+				TRUE, game->mlx_ctx);
+		else
+			draw_but(menu.buttons[i], game->mlx_ctx.buf,
+				FALSE, game->mlx_ctx);
+	}
 }

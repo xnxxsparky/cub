@@ -6,62 +6,54 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 00:20:28 by bcausseq          #+#    #+#             */
-/*   Updated: 2026/01/22 22:47:30 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/02/04 19:26:52 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 
-void	rotate_player(t_game *game, float angle)
+void	init_keys(t_game *game)
 {
-	float	old_dir_x;
-	float	old_cam_x;
+	t_ctrl	ctrl;
 
-	old_dir_x = 0.0f;
-	old_cam_x = 0.0f;
-	old_dir_x = game->player.dir_x;
-	old_cam_x = game->player.cam_x;
-	game->player.dir_x = game->player.dir_x * cos(angle)
-		- game->player.dir_y * sin(angle);
-	game->player.dir_y = old_dir_x * sin(angle)
-		+ game->player.dir_y * cos(angle);
-	game->player.cam_x = game->player.cam_x * cos(angle)
-		- game->player.cam_y * sin(angle);
-	game->player.cam_y = old_cam_x * sin(angle)
-		+ game->player.cam_y * cos(angle);
-}
-
-void	rotate(t_game *game)
-{
-	float	angle;
-
-	angle = 0.0f;
-	if (game->ctrl.l)
-		angle = -ROT_SPEED;
-	if (game->ctrl.r)
-		angle = ROT_SPEED;
-	if (angle != 0.0f)
-		rotate_player(game, angle);
+	ft_bzero(&ctrl, sizeof(t_ctrl));
+	ctrl.game.w.key = SDL_SCANCODE_W;
+	ctrl.game.a.key = SDL_SCANCODE_A;
+	ctrl.game.s.key = SDL_SCANCODE_S;
+	ctrl.game.d.key = SDL_SCANCODE_D;
+	ctrl.game.l.key = SDL_SCANCODE_LEFT;
+	ctrl.game.r.key = SDL_SCANCODE_RIGHT;
+	ctrl.game.oskour.key = SDL_SCANCODE_LALT;
+	ctrl.game.pause.key = SDL_SCANCODE_P;
+	ctrl.game.menu.key = SDL_SCANCODE_F1;
+	ctrl.game.escape.key = SDL_SCANCODE_ESCAPE;
+	ctrl.sett.l.key = SDL_SCANCODE_LEFT;
+	ctrl.sett.r.key = SDL_SCANCODE_RIGHT;
+	ctrl.sett.u.key = SDL_SCANCODE_UP;
+	ctrl.sett.d.key = SDL_SCANCODE_DOWN;
+	ctrl.sett.select.key = SDL_SCANCODE_RETURN;
+	ctrl.sett.ret.key = SDL_SCANCODE_BACKSPACE;
+	game->ctrl = ctrl;
 }
 
 void	cross_pad(t_game *game, float *move_x, float *move_y)
 {
-	if (game->ctrl.w)
+	if (game->ctrl.game.w.on)
 	{
 		(*move_x) += game->player.dir_x * MOV_SPEED;
 		(*move_y) += game->player.dir_y * MOV_SPEED;
 	}
-	if (game->ctrl.s)
+	if (game->ctrl.game.s.on)
 	{
 		(*move_x) -= game->player.dir_x * MOV_SPEED;
 		(*move_y) -= game->player.dir_y * MOV_SPEED;
 	}
-	if (game->ctrl.d)
+	if (game->ctrl.game.d.on)
 	{
 		(*move_x) += game->player.cam_x * MOV_SPEED;
 		(*move_y) += game->player.cam_y * MOV_SPEED;
 	}
-	if (game->ctrl.a)
+	if (game->ctrl.game.a.on)
 	{
 		(*move_x) -= game->player.cam_x * MOV_SPEED;
 		(*move_y) -= game->player.cam_y * MOV_SPEED;

@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 23:30:24 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/12/18 14:48:25 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/02/04 23:57:51 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef LIBFT_H
@@ -52,6 +52,7 @@ long long	ft_atoll(const char *nptr);
 int			ft_putchar_fd(char c, int fd);
 int			ft_putstr_fd(const char *s, int fd);
 int			ft_putnbr_fd(int n, int fd);
+void		*ft_memcpy(void *dest, const void *src, size_t n);
 
 //en loosed
 int			ft_atoi(const char *nptr);
@@ -67,9 +68,9 @@ int			ft_fprintf_hex(int fd, int *i, unsigned int disp, char *mode);
 int			ft_putnbr_hex_fd(unsigned long n, int fd, char *mode);
 int			ft_putunbr_fd(long long n, int fd);
 
-int	ft_strlchr(const char *s, int c);
-char	**utl_super_free(void **str);
+int			ft_strlchr(const char *s, int c);
+char		**utl_super_free(void **str);
 
-int	str_llstr(char *big, char *little, size_t len, int start);
+int			str_llstr(char *big, char *little, size_t len, int start);
 
 #endif

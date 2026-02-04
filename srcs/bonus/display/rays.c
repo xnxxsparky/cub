@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 00:25:45 by bcausseq          #+#    #+#             */
-/*   Updated: 2026/01/24 20:50:24 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/02/04 20:13:11 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,27 +26,13 @@ void	dda_algorithm(t_game *game, t_ray *ray)
 {
 	int	hit;
 
-	hit = 0;
-	while (hit == 0)
+	hit = HIT_NONE;
+	while (!hit)
 	{
-		if (ray->dist_side_x < ray->dist_side_y)
-		{
-			ray->dist_side_x += ray->delta_dist_x;
-			ray->map_x += ray->step_x;
-			ray->side_hit = 0;
-		}
-		else
-		{
-			ray->dist_side_y += ray->delta_dist_y;
-			ray->map_y += ray->step_y;
-			ray->side_hit = 1;
-		}
-		if (ray->map_x < 0 || ray->map_x >= game->map.width
-			|| ray->map_y < 0 || ray->map_y >= game->map.height)
-			hit = 1;
-		else if (game->map.data_map[ray->map_y][ray->map_x] == '1')
-			hit = 1;
+		dda_step(ray);
+		hit = is_hit(game, ray);
 	}
+	ray->hit_type = hit;
 }
 
 void	find_step(t_game *game, t_ray *ray)
@@ -103,7 +89,7 @@ void	cast_rays(void *param)
 	t_ray		ray;
 	int			x;
 
-	x = 0;
+	x = -1;
 	game = (t_game *)param;
 	if (game->curr_state != NORMAL_STATE)
 		return ;
@@ -112,13 +98,13 @@ void	cast_rays(void *param)
 		(mlx_color){.rgba = 0x000000FF});
 	draw_bg(game);
 	move(game);
-	while (x < WIDTH)
+	while (++x < WIDTH)
 	{
 		init_ray(game, &ray, x);
+		open_door(game, &game->map, &ray);
 		dda_algorithm(game, &ray);
 		calc_wall_distance(game, &ray);
 		draw_wall(game, &ray, x, game->mlx_ctx.buf);
-		x++;
 	}
 	mlx_set_image_region(game->mlx_ctx.mlx_ctx, game->mlx_ctx.img,
 		0, 0, WIDTH, HEIGHT, game->mlx_ctx.buf);

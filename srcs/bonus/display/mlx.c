@@ -6,24 +6,14 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 00:23:50 by bcausseq          #+#    #+#             */
-/*   Updated: 2026/01/24 21:53:45 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/02/04 21:23:49 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "mlx.h"
 #include "cub3d_bonus.h"
 
-void	update_state(void *param)
-{
-	t_game	*game;
-
-	game = (t_game *)param;
-	if (game->curr_state == NORMAL_STATE)
-		cast_rays((void *)game);
-	else if (game->curr_state == MENU_STATE)
-		menu_draw(game);
-}
-
-t_boolean	init_mlx(t_game *game)
+t_boolean	blablabla(t_game *game)
 {
 	game->mlx_ctx.mlx_ctx = mlx_init();
 	if (!(game->mlx_ctx.mlx_ctx))
@@ -37,14 +27,49 @@ t_boolean	init_mlx(t_game *game)
 		return (FALSE);
 	game->mlx_ctx.buf = ft_calloc(sizeof(mlx_color), HEIGHT * WIDTH);
 	if (!(game->mlx_ctx.buf))
+	{
+		mlx_destroy_window(game->mlx_ctx.mlx_ctx, game->mlx_ctx.win);
 		return (FALSE);
-	game->mlx_ctx.img = mlx_new_image(game->mlx_ctx.mlx_ctx, WIDTH, HEIGHT);
-	game->curr_state = NORMAL_STATE;
-	init_mouse(game);
+	}
+	init_but(game);
+	if (!game->menu.buttons)
+	{
+		mlx_destroy_window(game->mlx_ctx.mlx_ctx, game->mlx_ctx.win);
+		free(game->mlx_ctx.buf);
+		return (FALSE);
+	}
 	return (TRUE);
 }
 
-void	text_free(t_game *game)
+t_boolean	init_mlx(t_game *game)
+{
+	if (!blablabla(game))
+		return (FALSE);
+	game->mlx_ctx.old_buf = ft_calloc(sizeof(mlx_color), HEIGHT * WIDTH);
+	if (!(game->mlx_ctx.old_buf))
+	{
+		mlx_destroy_window(game->mlx_ctx.mlx_ctx, game->mlx_ctx.win);
+		free(game->mlx_ctx.buf);
+		free(game->menu.buttons);
+		return (FALSE);
+	}
+	game->mlx_ctx.img = mlx_new_image(game->mlx_ctx.mlx_ctx, WIDTH, HEIGHT);
+	game->curr_state = NORMAL_STATE;
+	init_mouse(game);
+	init_keys(game);
+	init_keybinds(game);
+	if (!game->key_bind.buttons)
+	{
+		mlx_destroy_window(game->mlx_ctx.mlx_ctx, game->mlx_ctx.win);
+		free(game->mlx_ctx.buf);
+		free(game->menu.buttons);
+		free(game->mlx_ctx.old_buf);
+		return (FALSE);
+	}
+	return (TRUE);
+}
+
+void	bonus_free(t_game *game)
 {
 	if (game->texture.door.text_color)
 	{
@@ -52,6 +77,14 @@ void	text_free(t_game *game)
 		free(game->texture.door.path);
 		mlx_destroy_image(game->mlx_ctx.mlx_ctx, game->texture.door.text);
 	}
+	if (game->menu.buttons)
+		free(game->menu.buttons);
+	if (game->key_bind.buttons)
+		free(game->key_bind.buttons);
+	if (game->set_bind.buttons)
+		free(game->set_bind.buttons);
+	if (game->mlx_ctx.old_buf)
+		free(game->mlx_ctx.old_buf);
 }
 
 void	free_text(t_game *game)
@@ -80,7 +113,7 @@ void	free_text(t_game *game)
 		free(game->texture.ea.path);
 		mlx_destroy_image(game->mlx_ctx.mlx_ctx, game->texture.ea.text);
 	}
-	text_free(game);
+	bonus_free(game);
 }
 
 void	free_game(t_game *game)

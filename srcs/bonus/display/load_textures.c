@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 00:14:20 by bcausseq          #+#    #+#             */
-/*   Updated: 2026/01/22 20:59:46 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/02/04 21:29:10 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,12 @@ void	init_texture(t_game *game)
 	image_load(game->mlx_ctx.mlx_ctx, &(game->texture));
 	if (!get_text_buff(game->mlx_ctx.mlx_ctx, &(game->texture)))
 		return ;
+	sett_init_keybinds(game);
+	if (!game->set_bind.buttons)
+	{
+		clear_buffers(&(game->texture));
+		return ;
+	}
 	mlx_get_image_region(game->mlx_ctx.mlx_ctx, game->texture.so.text,
 		0, 0, game->texture.so.width, game->texture.so.height,
 		game->texture.so.text_color);

@@ -6,7 +6,7 @@
 #    By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/17 01:17:51 by bcausseq          #+#    #+#              #
-#    Updated: 2026/01/24 21:22:52 by bcausseq         ###   ########.fr        #
+#    Updated: 2026/02/04 21:29:47 by bcausseq         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 CC 			= cc
@@ -33,7 +33,7 @@ SRCS		= srcs/manda/display/drawing.c\
 			srcs/manda/init/init_data.c\
 			srcs/manda/init/init_textures.c\
 			srcs/manda/gameplay/keys.c\
-			main.c\
+			main_manda.c\
 			srcs/manda/display/mlx.c\
 			srcs/manda/gameplay/movements.c\
 			srcs/manda/parse/parse_color.c\
@@ -63,9 +63,17 @@ BONUS_SRCS	= srcs/bonus/display/drawing.c\
 			  srcs/bonus/p_door_bonus.c\
 			  srcs/bonus/parse/parse_utils.c\
 			  srcs/bonus/gameplay/player.c\
+			  srcs/bonus/gameplay/keys_dwn.c\
+			  srcs/bonus/gameplay/keys_up.c\
 			  srcs/bonus/display/rays.c\
 			  srcs/bonus/mouse.c\
-			  srcs/bonus/menu.c
+			  srcs/bonus/menu.c\
+			  srcs/bonus/keybind.c\
+			  srcs/bonus/handle_change.c\
+			  srcs/bonus/ft_fsog.c\
+			  srcs/bonus/ft_bufcpy.c\
+			  srcs/bonus/rotate_handler.c\
+			  srcs/bonus/settings_keybind.c
 
 BONUS_OBJ	= $(addprefix $(OBJ_DIR)/bonus/,$(BONUS_SRCS:.c=.o))
 
@@ -105,7 +113,7 @@ $(OBJ_DIR)/manda/%.o:	%.c | $(MLX_PATH)
 clean:
 	@echo "$(YELLOW)🧹 Cleaning object files...$(RESET)"
 	@make --no-print-directory -C $(LIBFT) clean
-	@make --no-print-directory -C $(MLX_PATH) clean
+	#@make --no-print-directory -C $(MLX_PATH) clean
 	@rm -f $(OBJ)
 	@rm -rf $(OBJ_DIR)
 	@echo "$(GREEN)✨ Clean completed!$(RESET)"
