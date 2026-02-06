@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 22:09:57 by bcausseq          #+#    #+#             */
-/*   Updated: 2026/02/04 21:31:21 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/02/07 00:31:39 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	keybind_draw(t_game *game)
 	mlx_clear_window(game->mlx_ctx.mlx_ctx, game->mlx_ctx.win,
 		(mlx_color){.rgba = 0x000000FF});
 	but_display(game, game->key_bind);
+	mouse_menu(game, &(game->key_bind));
 	mlx_set_image_region(game->mlx_ctx.mlx_ctx, game->mlx_ctx.img,
 		0, 0, WIDTH, HEIGHT, game->mlx_ctx.buf);
 	mlx_put_image_to_window(game->mlx_ctx.mlx_ctx, game->mlx_ctx.win,

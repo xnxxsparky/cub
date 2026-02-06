@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 20:20:54 by bcausseq          #+#    #+#             */
-/*   Updated: 2026/01/22 18:11:12 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/02/07 00:44:53 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,7 +201,7 @@ move(t_game *game);
 t_boolean
 init_mlx(t_game *game);
 
-void
+int
 free_game(t_game *game);
 
 void

@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 22:09:57 by bcausseq          #+#    #+#             */
-/*   Updated: 2026/02/04 23:49:45 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/02/07 00:49:47 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,47 +70,9 @@ void	sett_keybind_draw(t_game *game)
 	mlx_clear_window(game->mlx_ctx.mlx_ctx, game->mlx_ctx.win,
 		(mlx_color){.rgba = 0x000000FF});
 	but_display(game, game->set_bind);
+	mouse_menu(game, &(game->set_bind));
 	mlx_set_image_region(game->mlx_ctx.mlx_ctx, game->mlx_ctx.img,
 		0, 0, WIDTH, HEIGHT, game->mlx_ctx.buf);
 	mlx_put_image_to_window(game->mlx_ctx.mlx_ctx, game->mlx_ctx.win,
 		game->mlx_ctx.img, 0, 0);
-}
-
-void	sett_keybind_key_hooks_dwn_p2(int key, t_game *game)
-{
-	if (key == game->ctrl.sett.d.key)
-	{
-		if (game->set_bind.index_select == game->set_bind.nb_buttons - 1)
-			game->curr_state = KEYBNG_GAME_STATE;
-		else if (game->set_bind.index_select + 2 < game->set_bind.nb_buttons)
-			game->set_bind.index_select += 2;
-	}
-	else if (key == game->ctrl.sett.select.key)
-		game->set_bind.buttons[game->set_bind.index_select].action(game);
-	else if (key == game->ctrl.sett.ret.key)
-		game->curr_state = MENU_STATE;
-}
-
-void	sett_keybind_key_hooks_dwn(int key, t_game *game)
-{
-	if (key == game->ctrl.sett.l.key)
-	{
-		game->set_bind.index_select--;
-		if (game->set_bind.index_select < 0)
-			game->set_bind.index_select = game->set_bind.nb_buttons - 1;
-	}
-	else if (key == game->ctrl.sett.r.key)
-	{
-		game->set_bind.index_select++;
-		if (game->set_bind.index_select > game->set_bind.nb_buttons - 1)
-			game->set_bind.index_select = 0;
-	}
-	else if (key == game->ctrl.sett.u.key)
-	{
-		if (game->set_bind.index_select == 0)
-			game->curr_state = WAITING_GAME_STATE;
-		else if (game->set_bind.index_select - 2 >= 0)
-			game->set_bind.index_select -= 2;
-	}
-	sett_keybind_key_hooks_dwn_p2(key, game);
 }

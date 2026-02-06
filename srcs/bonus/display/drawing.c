@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 00:07:21 by bcausseq          #+#    #+#             */
-/*   Updated: 2026/02/04 20:12:00 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/02/07 00:50:51 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,19 +96,4 @@ void	open_door(t_game *game, t_map *map, t_ray *ray)
 		map->data_map[map->pos_door_y][map->pos_door_x] = '0';
 	else
 		map->data_map[map->pos_door_y][map->pos_door_x] = 'D';
-}
-
-void	menu_draw(t_game *game)
-{
-	if (game->curr_state != MENU_STATE)
-		return ;
-	ft_bufcpy(game->mlx_ctx.old_buf, game->mlx_ctx.buf);
-	fifty_shade_of_grey(game);
-	mlx_clear_window(game->mlx_ctx.mlx_ctx, game->mlx_ctx.win,
-		(mlx_color){.rgba = 0x000000FF});
-	but_display(game, game->menu);
-	mlx_set_image_region(game->mlx_ctx.mlx_ctx, game->mlx_ctx.img,
-		0, 0, WIDTH, HEIGHT, game->mlx_ctx.buf);
-	mlx_put_image_to_window(game->mlx_ctx.mlx_ctx, game->mlx_ctx.win,
-		game->mlx_ctx.img, 0, 0);
 }

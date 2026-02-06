@@ -6,11 +6,12 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 00:23:50 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/12/18 20:51:55 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/02/07 00:46:03 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "includes/libft.h"
 
 t_boolean	init_mlx(t_game *game)
 {
@@ -59,7 +60,7 @@ void	free_text(t_game *game)
 	}
 }
 
-void	free_game(t_game *game)
+int	free_game(t_game *game)
 {
 	int	i;
 
@@ -78,12 +79,8 @@ void	free_game(t_game *game)
 	if (game->colors.c_ceiling)
 		free(game->colors.c_ceiling);
 	i = -1;
-	if (game->map.data_map)
-	{
-		while (game->map.data_map[++i])
-			free(game->map.data_map[i]);
-		free(game->map.data_map);
-	}
+	utl_super_free((void **)game->map.data_map);
 	free(game->map.map);
 	free(game->mlx_ctx.buf);
+	return (1);
 }

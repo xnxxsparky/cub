@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 20:20:54 by bcausseq          #+#    #+#             */
-/*   Updated: 2026/02/04 21:43:09 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/02/07 00:42:04 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -281,7 +281,7 @@ move(t_game *game);
 t_boolean
 init_mlx(t_game *game);
 
-void
+int
 free_game(t_game *game);
 
 void
@@ -390,6 +390,12 @@ sett_waiting(int key, t_game *game);
 
 void
 sett_keybind_key_hooks_dwn(int key, t_game *game);
+
+void
+mouse_menu(t_game *game, t_menu *menu);
+
+void
+mouse_click_handle(int key, void *param);
 
 /************************************************************/
 /*                    Salabbe's Functions                   */

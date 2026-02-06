@@ -6,11 +6,10 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 00:23:50 by bcausseq          #+#    #+#             */
-/*   Updated: 2026/02/04 21:23:49 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/02/07 00:42:04 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mlx.h"
 #include "cub3d_bonus.h"
 
 t_boolean	blablabla(t_game *game)
@@ -116,7 +115,7 @@ void	free_text(t_game *game)
 	bonus_free(game);
 }
 
-void	free_game(t_game *game)
+int	free_game(t_game *game)
 {
 	int	i;
 
@@ -135,12 +134,8 @@ void	free_game(t_game *game)
 	if (game->colors.c_ceiling)
 		free(game->colors.c_ceiling);
 	i = -1;
-	if (game->map.data_map)
-	{
-		while (game->map.data_map[++i])
-			free(game->map.data_map[i]);
-		free(game->map.data_map);
-	}
+	utl_super_free((void **)game->map.data_map);
 	free(game->map.map);
 	free(game->mlx_ctx.buf);
+	return (1);
 }

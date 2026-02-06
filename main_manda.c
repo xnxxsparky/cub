@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/18 21:05:44 by salabbe           #+#    #+#             */
-/*   Updated: 2026/01/28 13:56:33 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/02/07 00:44:53 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,7 @@ int	main(int ac, char **av)
 	if (init_all(&game) == 1)
 		return (1);
 	if (!init_mlx(&game))
-	{
-		free_game(&game);
-		return (1);
-	}
+		return (free_game(&game));
 	init_texture(&game);
 	mlx_on_event(game.mlx_ctx.mlx_ctx, game.mlx_ctx.win,
 		MLX_WINDOW_EVENT, win_hooks, &game);
