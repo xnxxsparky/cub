@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 20:08:06 by bcausseq          #+#    #+#             */
-/*   Updated: 2026/01/31 02:05:21 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/02/07 01:38:56 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,18 +67,16 @@ void	draw_but(t_buttons button, mlx_color *buf,
 
 void	but_display(t_game *game, t_menu menu)
 {
-	int	i;
+	int			i;
+	t_boolean	selected;
 
 	i = -1;
 	if (!menu.buttons)
 		return ;
 	while (++i < menu.nb_buttons)
 	{
-		if (i == menu.index_select)
-			draw_but(menu.buttons[i], game->mlx_ctx.buf,
-				TRUE, game->mlx_ctx);
-		else
-			draw_but(menu.buttons[i], game->mlx_ctx.buf,
-				FALSE, game->mlx_ctx);
+		selected = menu.index_select == i;
+		draw_but(menu.buttons[i], game->mlx_ctx.buf, selected);
+// 		draw_text(menu.buttons[i], selected, game->mlx_ctx);
 	}
 }
