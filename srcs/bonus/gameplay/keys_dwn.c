@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/28 21:41:01 by bcausseq          #+#    #+#             */
-/*   Updated: 2026/02/04 23:54:40 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/02/07 20:47:56 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,8 @@ void	keybind_key_hooks_dwn(int key, t_game *game)
 
 void	waiting(int key, t_game *game)
 {
+	if (check_key_free(key, game) == FALSE)
+		return ;
 	if (game->key_bind.index_select == 0)
 		game->ctrl.game.w.key = key;
 	else if (game->key_bind.index_select == 1)

@@ -6,12 +6,11 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 01:25:34 by bcausseq          #+#    #+#             */
-/*   Updated: 2026/02/07 19:01:58 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/02/07 20:46:34 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
-#include "mlx.h"
 
 void	update_state(void *param)
 {
@@ -27,9 +26,9 @@ void	update_state(void *param)
 	else if (game->curr_state == KEYBNG_SETT_STATE)
 		sett_keybind_draw(game);
 	else if (game->curr_state == WAITING_GAME_STATE)
-		;
+		display_wait_bind(game);
 	else if (game->curr_state == WAITING_SETT_STATE)
-		;
+		display_wait_bind(game);
 }
 
 void	handle_pause(t_game *game)

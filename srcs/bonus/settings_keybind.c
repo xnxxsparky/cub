@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 22:09:57 by bcausseq          #+#    #+#             */
-/*   Updated: 2026/02/07 19:18:36 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/02/07 20:47:56 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void	sett_init_keybinds(t_game *game)
 
 void	sett_waiting(int key, t_game *game)
 {
+	if (check_key_free(key, game) == FALSE)
+		return ;
 	if (game->set_bind.index_select == 0)
 		game->ctrl.sett.l.key = key;
 	else if (game->set_bind.index_select == 1)
