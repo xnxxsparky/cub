@@ -6,12 +6,11 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 20:08:06 by bcausseq          #+#    #+#             */
-/*   Updated: 2026/02/07 01:38:56 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/02/07 19:29:27 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
-#include "mlx.h"
 
 void	quit(t_game *game)
 {
@@ -43,8 +42,7 @@ void	init_but(t_game *game)
 	game->menu.index_select = 0;
 }
 
-void	draw_but(t_buttons button, mlx_color *buf,
-		t_boolean selected, t_mlx mlx)
+void	draw_but(t_buttons button, mlx_color *buf, t_boolean selected)
 {
 	int	x;
 	int	y;
@@ -61,8 +59,22 @@ void	draw_but(t_buttons button, mlx_color *buf,
 				buf[y * WIDTH + x] = button.normal;
 		}
 	}
-	mlx_string_put(mlx.mlx_ctx, mlx.win, button.x, button.y,
-		(mlx_color){.rgba = 0x000000FF}, button.text);
+}
+
+void	draw_text(t_buttons *button, t_menu menu, t_mlx mlx)
+{
+	const mlx_color	colors[2] = {(mlx_color){.rgba = 0xC40C0CFF},
+	{.rgba = 0x08CB00FF}};
+	t_boolean		selected;
+	int				i;
+
+	i = -1;
+	while (++i < menu.nb_buttons)
+	{
+		selected = i == menu.index_select;
+		mlx_string_put(mlx.mlx_ctx, mlx.win, button[i].x, button[i].y,
+			colors[(int)selected], button[i].text);
+	}
 }
 
 void	but_display(t_game *game, t_menu menu)
@@ -77,6 +89,5 @@ void	but_display(t_game *game, t_menu menu)
 	{
 		selected = menu.index_select == i;
 		draw_but(menu.buttons[i], game->mlx_ctx.buf, selected);
-// 		draw_text(menu.buttons[i], selected, game->mlx_ctx);
 	}
 }

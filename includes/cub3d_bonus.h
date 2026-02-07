@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 20:20:54 by bcausseq          #+#    #+#             */
-/*   Updated: 2026/02/07 00:42:04 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/02/07 19:14:32 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -396,6 +396,9 @@ mouse_menu(t_game *game, t_menu *menu);
 
 void
 mouse_click_handle(int key, void *param);
+
+void
+draw_text(t_buttons *button, t_menu menu, t_mlx mlx);
 
 /************************************************************/
 /*                    Salabbe's Functions                   */

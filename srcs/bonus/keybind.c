@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 22:09:57 by bcausseq          #+#    #+#             */
-/*   Updated: 2026/02/07 00:31:39 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/02/07 19:17:24 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,5 @@ void	keybind_draw(t_game *game)
 		0, 0, WIDTH, HEIGHT, game->mlx_ctx.buf);
 	mlx_put_image_to_window(game->mlx_ctx.mlx_ctx, game->mlx_ctx.win,
 		game->mlx_ctx.img, 0, 0);
+	draw_text(game->key_bind.buttons, game->key_bind, game->mlx_ctx);
 }

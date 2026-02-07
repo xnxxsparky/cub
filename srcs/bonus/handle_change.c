@@ -6,11 +6,12 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 01:25:34 by bcausseq          #+#    #+#             */
-/*   Updated: 2026/02/04 21:43:19 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/02/07 19:01:58 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
+#include "mlx.h"
 
 void	update_state(void *param)
 {
@@ -86,6 +87,8 @@ void	state_key_hooks_dwn(int key, void *param)
 
 void	pause_key_hooks_dwn(int key, t_game *game)
 {
-	if (key == SDL_SCANCODE_P)
+	if (key == game->ctrl.game.pause.key)
 		handle_pause(game);
+	else if (key == game->ctrl.game.escape.key)
+		mlx_loop_end(game->mlx_ctx.mlx_ctx);
 }

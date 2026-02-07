@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/06 23:58:52 by bcausseq          #+#    #+#             */
-/*   Updated: 2026/02/07 00:50:51 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/02/07 19:14:39 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,14 +74,15 @@ void	menu_draw(t_game *game)
 {
 	if (game->curr_state != MENU_STATE)
 		return ;
-	ft_bufcpy(game->mlx_ctx.old_buf, game->mlx_ctx.buf);
-	fifty_shade_of_grey(game);
 	mlx_clear_window(game->mlx_ctx.mlx_ctx, game->mlx_ctx.win,
 		(mlx_color){.rgba = 0x000000FF});
+	ft_bufcpy(game->mlx_ctx.old_buf, game->mlx_ctx.buf);
+	fifty_shade_of_grey(game);
 	but_display(game, game->menu);
 	mouse_menu(game, &(game->menu));
 	mlx_set_image_region(game->mlx_ctx.mlx_ctx, game->mlx_ctx.img,
 		0, 0, WIDTH, HEIGHT, game->mlx_ctx.buf);
 	mlx_put_image_to_window(game->mlx_ctx.mlx_ctx, game->mlx_ctx.win,
 		game->mlx_ctx.img, 0, 0);
+	draw_text(game->menu.buttons, game->menu, game->mlx_ctx);
 }
