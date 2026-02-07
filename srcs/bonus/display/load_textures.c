@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 00:14:20 by bcausseq          #+#    #+#             */
-/*   Updated: 2026/02/04 21:29:10 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/02/07 20:20:58 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,20 @@ void	init_texture(t_game *game)
 	mlx_get_image_region(game->mlx_ctx.mlx_ctx, game->texture.we.text,
 		0, 0, game->texture.we.width, game->texture.we.height,
 		game->texture.we.text_color);
+}
+
+void	draw_text(t_buttons *button, t_menu menu, t_mlx mlx)
+{
+	const mlx_color	colors[2] = {(mlx_color){.rgba = 0xC40C0CFF},
+	{.rgba = 0x08CB00FF}};
+	t_boolean		selected;
+	int				i;
+
+	i = -1;
+	while (++i < menu.nb_buttons)
+	{
+		selected = i == menu.index_select;
+		mlx_string_put(mlx.mlx_ctx, mlx.win, button[i].x, button[i].y,
+			colors[(int)selected], button[i].text);
+	}
 }

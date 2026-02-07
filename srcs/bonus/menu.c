@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 20:08:06 by bcausseq          #+#    #+#             */
-/*   Updated: 2026/02/07 19:29:27 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/02/07 20:20:58 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,22 +58,6 @@ void	draw_but(t_buttons button, mlx_color *buf, t_boolean selected)
 			else
 				buf[y * WIDTH + x] = button.normal;
 		}
-	}
-}
-
-void	draw_text(t_buttons *button, t_menu menu, t_mlx mlx)
-{
-	const mlx_color	colors[2] = {(mlx_color){.rgba = 0xC40C0CFF},
-	{.rgba = 0x08CB00FF}};
-	t_boolean		selected;
-	int				i;
-
-	i = -1;
-	while (++i < menu.nb_buttons)
-	{
-		selected = i == menu.index_select;
-		mlx_string_put(mlx.mlx_ctx, mlx.win, button[i].x, button[i].y,
-			colors[(int)selected], button[i].text);
 	}
 }
 
