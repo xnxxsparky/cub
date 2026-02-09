@@ -6,7 +6,7 @@
 #    By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/17 01:17:51 by bcausseq          #+#    #+#              #
-#    Updated: 2026/02/07 00:49:18 by bcausseq         ###   ########.fr        #
+#    Updated: 2026/02/09 17:26:07 by bcausseq         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 CC 			= cc
@@ -75,7 +75,8 @@ BONUS_SRCS	= srcs/bonus/display/drawing.c\
 			  srcs/bonus/rotate_handler.c\
 			  srcs/bonus/settings_keybind.c\
 			  srcs/bonus/mouse_menu.c\
-			  srcs/bonus/settings_keybind_hooks.c
+			  srcs/bonus/settings_keybind_hooks.c\
+			  srcs/bonus/key_bind_display.c
 
 BONUS_OBJ	= $(addprefix $(OBJ_DIR)/bonus/,$(BONUS_SRCS:.c=.o))
 
