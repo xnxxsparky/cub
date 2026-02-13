@@ -6,7 +6,7 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/07 00:49:24 by bcausseq          #+#    #+#             */
-/*   Updated: 2026/02/07 00:49:49 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/02/13 14:04:11 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	sett_keybind_key_hooks_dwn(int key, t_game *game)
 	else if (key == game->ctrl.sett.u.key)
 	{
 		if (game->set_bind.index_select == 0)
-			game->curr_state = WAITING_GAME_STATE;
+			game->curr_state = KEYBNG_GAME_STATE;
 		else if (game->set_bind.index_select - 2 >= 0)
 			game->set_bind.index_select -= 2;
 	}
