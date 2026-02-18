@@ -6,11 +6,13 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/13 19:02:35 by salabbe           #+#    #+#             */
-/*   Updated: 2025/12/22 21:40:53 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/02/18 01:21:51 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+// #include "cub3d.h"
+
+#include "manda.h"
 
 static char	*set_data(char *line)
 {
@@ -24,30 +26,6 @@ static char	*set_data(char *line)
 	else if (line[i] == '.' && line[i + 1] == '/')
 		return (ft_substr(line, i + 2, ft_strlen(line)));
 	return (NULL);
-}
-
-void	free_data_texture(t_colors *colors, t_texture *textures)
-{
-	if (textures)
-	{
-		if (textures->no.path)
-			free(textures->no.path);
-		if (textures->so.path)
-			free(textures->so.path);
-		if (textures->we.path)
-			free(textures->we.path);
-		if (textures->ea.path)
-			free(textures->ea.path);
-		textures = NULL;
-	}
-	if (colors)
-	{
-		if (colors->c_floor)
-			free(colors->c_floor);
-		if (colors->c_ceiling)
-			free(colors->c_ceiling);
-		colors = NULL;
-	}
 }
 
 static int	set_data_map(t_game *game, int i, int j)
@@ -73,7 +51,7 @@ static int	set_data_map(t_game *game, int i, int j)
 	{
 		free(sub);
 		free_data_texture(&game->colors, &game->texture);
-		error(MAP, NULL, game, FALSE);
+		error(MAP, NULL, game);
 	}
 	free(sub);
 	return (0);
@@ -85,14 +63,14 @@ static int	verify_data(t_game *game, int j)
 	if (game->map.data_map == NULL)
 	{
 		free_data_texture(&game->colors, &game->texture);
-		error(MAP, NULL, game, FALSE);
+		error(MAP, NULL, game);
 	}
 	get_player(&(game->map), &(game->player));
 	if (parse_colors(&game->colors) == 1)
 	{
 		utl_super_free((void **)game->map.data_map);
 		free_data_texture(&game->colors, &game->texture);
-		error(COLORS, NULL, game, FALSE);
+		error(COLORS, NULL, game);
 	}
 	else
 		return (0);

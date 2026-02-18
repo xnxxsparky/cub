@@ -6,12 +6,13 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 00:25:45 by bcausseq          #+#    #+#             */
-/*   Updated: 2026/02/07 19:16:00 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/02/17 19:30:26 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d_bonus.h"
-#include "mlx.h"
+// #include "cub3d_bonus.h"
+
+#include "bonus.h"
 
 void	calc_wall_distance(t_game *game, t_ray *ray)
 {

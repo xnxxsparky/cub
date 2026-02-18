@@ -6,11 +6,12 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/07 20:31:17 by bcausseq          #+#    #+#             */
-/*   Updated: 2026/02/07 20:54:34 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/02/17 17:53:05 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d_bonus.h"
+// #include "cub3d_bonus.h"
+#include "bonus.h"
 
 t_boolean	check_key_free(int key, t_game *game)
 {
@@ -35,7 +36,7 @@ void	display_wait_bind(t_game *game)
 	mlx_clear_window(game->mlx_ctx.mlx_ctx, game->mlx_ctx.win,
 		(mlx_color){.rgba = 0x000000FF});
 	ft_bufcpy(game->mlx_ctx.old_buf, game->mlx_ctx.buf);
-	fifty_shade_of_grey(game);
+	fifty_shade_of_grey(game->mlx_ctx.buf);
 	mlx_string_put(game->mlx_ctx.mlx_ctx, game->mlx_ctx.win,
 		game->menu.buttons[1].x, game->menu.buttons[1].y,
 		(mlx_color){.rgba = 0x08CB00FF},

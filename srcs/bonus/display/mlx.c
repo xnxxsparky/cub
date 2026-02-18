@@ -6,11 +6,13 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 00:23:50 by bcausseq          #+#    #+#             */
-/*   Updated: 2026/02/07 00:42:04 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/02/17 19:30:41 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d_bonus.h"
+// #include "cub3d_bonus.h"
+
+#include "bonus.h"
 
 t_boolean	blablabla(t_game *game)
 {

@@ -6,11 +6,12 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 01:25:34 by bcausseq          #+#    #+#             */
-/*   Updated: 2026/02/07 20:46:34 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/02/17 17:58:06 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d_bonus.h"
+// #include "cub3d_bonus.h"
+#include "bonus.h"
 
 void	update_state(void *param)
 {

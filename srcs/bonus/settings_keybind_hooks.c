@@ -6,11 +6,13 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/07 00:49:24 by bcausseq          #+#    #+#             */
-/*   Updated: 2026/02/13 14:04:11 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/02/17 18:11:53 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d_bonus.h"
+// #include "cub3d_bonus.h"
+
+#include "bonus.h"
 
 void	sett_keybind_key_hooks_dwn_p2(int key, t_game *game)
 {

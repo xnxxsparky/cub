@@ -6,138 +6,104 @@
 #    By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/17 01:17:51 by bcausseq          #+#    #+#              #
-#    Updated: 2026/02/09 17:26:07 by bcausseq         ###   ########.fr        #
+#    Updated: 2026/02/18 02:14:26 by bcausseq         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-CC 			= cc
+NAME := cub3D
+BNAME := cub3D_bonus
+MAKE := make --no-print-directory --debug=none
 
-CFLAGS		= -Wall -Wextra -Werror -g
-#CFLAGS		= -Wall -Wextra -Werror=vla -g -O0 -fno-builtin -mno-omit-leaf-frame-pointer -fno-omit-frame-pointer -fsanitize=address,pointer-compare,pointer-subtract,leak,undefined,shift,shift-exponent,shift-base,integer-divide-by-zero,unreachable,vla-bound,null,signed-integer-overflow,bounds,alignment,float-divide-by-zero,float-cast-overflow,nonnull-attribute,returns-nonnull-attribute,bool,enum,pointer-overflow,builtin -fsanitize-address-use-after-scope
+ifeq ($(DEVELOPMENT), 1)
+DEBUG := 1
+USE_WARNINGS := 1
+endif
 
-NAME		= cub
+DEBUG ?= 0
 
-LIBFT		= ./libft
+CC := clang
+CFLAGS := -Wall -Wextra -Iincludes -g
+ifneq ($(USE_WARNINGS), 1)
+CFLAGS += -Werror
+endif
+LDFLAGS :=
 
-LIBFT_LIB	= $(LIBFT)/libft.a
+SRC_DIR := srcs
+BUILD_DIR := build
+OBJ_DIR := $(BUILD_DIR)/obj
 
-HEADER		= includes
+ifeq ($(DEBUG), 1)
+CFLAGS += -g3 -gdwarf-3 -ggdb
+endif
 
-MLX_PATH	= ./MLX
-MLX_INC		= $(MLX_PATH)/includes
-MLX			= $(MLX_PATH)/libmlx.so
+ifeq ($(BONUS), 1)
+CFLAGS += -DBONUS
+endif
 
-SRCS		= srcs/manda/display/drawing.c\
-			srcs/manda/display/drawing_utils.c\
-			srcs/manda/display/load_textures.c\
-			srcs/manda/init/init_colors.c\
-			srcs/manda/init/init_data.c\
-			srcs/manda/init/init_textures.c\
-			srcs/manda/gameplay/keys.c\
-			main_manda.c\
-			srcs/manda/display/mlx.c\
-			srcs/manda/gameplay/movements.c\
-			srcs/manda/parse/parse_color.c\
-			srcs/manda/parse/parse_error.c\
-			srcs/manda/parse/parse_file.c\
-			srcs/manda/parse/parse_map.c\
-			srcs/manda/parse/parse_texture.c\
-			srcs/manda/parse/parse_utils.c\
-			srcs/manda/gameplay/player.c\
-			srcs/manda/display/rays.c\
+include sources.mk
 
-BONUS_SRCS	= srcs/bonus/display/drawing.c\
-			  srcs/bonus/i_textures_bonus.c\
-			  main.c\
-			  srcs/bonus/display/drawing_utils.c\
-			  srcs/bonus/display/load_textures.c\
-			  srcs/bonus/init/init_colors.c\
-			  srcs/bonus/init/init_data.c\
-			  srcs/bonus/gameplay/keys.c\
-			  srcs/bonus/display/mlx.c\
-			  srcs/bonus/gameplay/movements.c\
-			  srcs/bonus/parse/parse_color.c\
-			  srcs/bonus/parse/parse_error.c\
-			  srcs/bonus/parse/parse_file.c\
-			  srcs/bonus/p_map_bonus.c\
-			  srcs/bonus/p_texture_bonus.c\
-			  srcs/bonus/p_door_bonus.c\
-			  srcs/bonus/parse/parse_utils.c\
-			  srcs/bonus/gameplay/player.c\
-			  srcs/bonus/gameplay/keys_dwn.c\
-			  srcs/bonus/gameplay/keys_up.c\
-			  srcs/bonus/display/rays.c\
-			  srcs/bonus/mouse.c\
-			  srcs/bonus/menu.c\
-			  srcs/bonus/keybind.c\
-			  srcs/bonus/handle_change.c\
-			  srcs/bonus/ft_fsog.c\
-			  srcs/bonus/ft_bufcpy.c\
-			  srcs/bonus/rotate_handler.c\
-			  srcs/bonus/settings_keybind.c\
-			  srcs/bonus/mouse_menu.c\
-			  srcs/bonus/settings_keybind_hooks.c\
-			  srcs/bonus/key_bind_display.c
+OBJS := $(patsubst %.c,%.o,$(patsubst %.S,%.o,$(patsubst %.s,%.o,$(patsubst %.cpp,%.o,$(SRCS)))))
+SRCS := $(addprefix $(SRC_DIR)/,$(SRCS))
+OBJS := $(addprefix $(OBJ_DIR)/,$(OBJS))
 
-BONUS_OBJ	= $(addprefix $(OBJ_DIR)/bonus/,$(BONUS_SRCS:.c=.o))
+LIB_DIR := third_parties
+LIBRARIES += libft
+libft_DIR := $(LIB_DIR)/libft
+libft_DEP := $(libft_DIR)/libft.a
+CFLAGS += -I$(libft_DIR)/include -I$(libft_DIR)/includes
+LDFLAGS += $(libft_DEP)
+DEPFILES += $(libft_DEP)
+LIBRARIES += MacroLibX
+MacroLibX_URL := https://github.com/seekrs/MacroLibX.git
+MacroLibX_DIR := $(LIB_DIR)/MLX
+MacroLibX_DEP := $(MacroLibX_DIR)/libmlx.so
+CFLAGS += -I$(MacroLibX_DIR)/include -I$(MacroLibX_DIR)/includes
+LDFLAGS += $(MacroLibX_DEP)
+DEPFILES += $(MacroLibX_DEP)
+LDFLAGS += -lSDL2 -lm
 
-OBJ_DIR		= build
+all:
+	@$(MAKE) $(NAME) BONUS=0
 
-OBJ			= $(SRCS:.c=.o)
+bonus:
+	@$(MAKE) $(BNAME) BONUS=1
 
-OBJ			:= $(addprefix $(OBJ_DIR)/manda/,$(OBJ))
-
-# Colors
-RED = \033[0;31m
-GREEN = \033[0;32m
-YELLOW = \033[0;33m
-BLUE = \033[0;34m
-PURPLE = \033[0;35m
-CYAN = \033[0;36m
-WHITE = \033[0;37m
-BOLD = \033[1m
-RESET = \033[0m
-
-all:					$(NAME)
-
-$(MLX_PATH):
-	@if [ ! -d "$(MLX_PATH)" ]; then \
-		git clone https://github.com/Seekrs/MacroLibX $(MLX_PATH); \
+$(MacroLibX_DIR):
+	@if [ ! -d "$(MacroLibX_DIR)" ]; then \
+		git clone https://github.com/Seekrs/MacroLibX $(MacroLibX_DIR); \
 	fi
 
-$(NAME):				$(OBJ) | $(MLX_PATH)
-	@make --no-print-directory -C $(LIBFT)
-	@make --no-print-directory -C $(MLX_PATH) -j
-	@$(CC) $(CFLAGS) -o $@ $^ $(LIBFT_LIB) $(MLX) -lSDL2 -lm
+$(NAME): $(OBJS) $(DEPFILES)
+	$(CC) $(LDFLAGS) -o $@ $^
 
-$(OBJ_DIR)/manda/%.o:	%.c | $(MLX_PATH)
-	@mkdir -p $(@D)
-	@$(CC) $(CFLAGS) -I$(LIBFT) -I$(HEADER) -I$(MLX_INC) -c $< -o $@
+$(BNAME): $(OBJS) $(DEPFILES)
+	$(CC) $(LDFLAGS) -o $@ $^
 
-clean:
-	@echo "$(YELLOW)🧹 Cleaning object files...$(RESET)"
-	@make --no-print-directory -C $(LIBFT) clean
-	#@make --no-print-directory -C $(MLX_PATH) clean
-	@rm -f $(OBJ)
-	@rm -rf $(OBJ_DIR)
-	@echo "$(GREEN)✨ Clean completed!$(RESET)"
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -c $< -o $@
 
-fclean:					clean
-	@echo "$(YELLOW)🗑️  Full clean in progress...$(RESET)"
-	@make --no-print-directory -C $(LIBFT) fclean
-	#@make --no-print-directory -C $(MLX_PATH) fclean
-	@rm -f $(NAME)
-	@rm -f $(NAME) $(NAME)_bonus
-	@echo "$(GREEN)💀 Everything purged from Hell!$(RESET)"
+$(libft_DEP):
+	make -C $(libft_DIR) -j$(shell nproc)
 
-re:						fclean all
+$(MacroLibX_DEP): $(MacroLibX_DIR)
+	make -C $(MacroLibX_DIR) -j$(shell nproc)
 
-bonus: $(BONUS_OBJ) | $(MLX_PATH)
-	@make --no-print-directory -C $(LIBFT)
-	@make --no-print-directory -C $(MLX_PATH) -j
-	@$(CC) $(CFLAGS) -o $(NAME)_bonus $^ $(LIBFT_LIB) $(MLX) -lSDL2 -lm
+oclean:
+	rm -rf $(BUILD_DIR)
 
-$(OBJ_DIR)/bonus/%.o: %.c | $(MLX_PATH)
-	@mkdir -p $(@D)
-	@$(CC) $(CFLAGS) -I$(LIBFT) -I$(HEADER) -I$(MLX_INC) -c $< -o $@
+clean: oclean
+	make -C $(libft_DIR) clean
+	make -C $(MacroLibX_DIR) clean
 
-.PHONY: all clean fclean re bonus
+fclean: oclean
+	make -C $(libft_DIR) fclean
+	make -C $(MacroLibX_DIR) fclean
+	rm -rf $(NAME)
+	rm -rf $(BNAME)
+
+re: fclean
+	@$(MAKE) -j$(shell nproc) $(NAME)
+
+rb: fclean bonus
+
+.PHONY: all clean oclean fclean re bonus rb

@@ -6,11 +6,13 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/13 21:23:57 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/12/18 12:56:12 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/02/17 20:01:52 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d_bonus.h"
+// #include "cub3d.h"
+
+#include "draw.h"
 
 void	get_player_data(t_map *map, t_player *player, int x, int y)
 {

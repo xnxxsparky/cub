@@ -6,11 +6,13 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/18 21:04:36 by salabbe           #+#    #+#             */
-/*   Updated: 2025/12/18 21:05:34 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/02/17 19:37:52 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d_bonus.h"
+// #include "cub3d.h"
+
+#include "draw.h"
 
 static int	check_comma(char *str)
 {

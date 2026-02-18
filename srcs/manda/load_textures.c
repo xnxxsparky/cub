@@ -1,16 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   func_to_throw.c                                    :+:      :+:    :+:   */
+/*   load_textures.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 00:14:20 by bcausseq          #+#    #+#             */
-/*   Updated: 2025/12/22 22:10:34 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/02/18 12:24:19 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+// #include "cub3d.h"
+
+#include "manda.h"
 
 void	clear_buffers(t_texture texture)
 {

@@ -6,12 +6,12 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/06 23:58:52 by bcausseq          #+#    #+#             */
-/*   Updated: 2026/02/07 19:14:39 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/02/17 17:59:46 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d_bonus.h"
-#include "mlx.h"
+// #include "cub3d_bonus.h"
+#include "bonus.h"
 
 t_menu	*get_menu_addr(t_game *game)
 {
@@ -77,7 +77,7 @@ void	menu_draw(t_game *game)
 	mlx_clear_window(game->mlx_ctx.mlx_ctx, game->mlx_ctx.win,
 		(mlx_color){.rgba = 0x000000FF});
 	ft_bufcpy(game->mlx_ctx.old_buf, game->mlx_ctx.buf);
-	fifty_shade_of_grey(game);
+	fifty_shade_of_grey(game->mlx_ctx.buf);
 	but_display(game, game->menu);
 	mouse_menu(game, &(game->menu));
 	mlx_set_image_region(game->mlx_ctx.mlx_ctx, game->mlx_ctx.img,

@@ -6,11 +6,17 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/18 21:04:06 by salabbe           #+#    #+#             */
-/*   Updated: 2025/12/22 20:34:03 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/02/18 12:53:50 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+// #include "cub3d.h"
+
+#ifndef BONUS
+# include "manda.h"
+#else
+# include "bonus.h"
+#endif
 
 int	init_data(t_game *game)
 {

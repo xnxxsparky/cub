@@ -6,11 +6,13 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 00:20:28 by bcausseq          #+#    #+#             */
-/*   Updated: 2026/01/28 14:19:51 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/02/17 20:01:25 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+// #include "cub3d.h"
+
+#include "manda.h"
 
 void	rotate(t_game *game)
 {
@@ -21,9 +23,9 @@ void	rotate(t_game *game)
 	angle = 0.0f;
 	old_dir_x = 0.0f;
 	old_cam_x = 0.0f;
-	if (game->ctrl.l)
+	if (game->ctrl.game.l.on)
 		angle = -ROT_SPEED;
-	if (game->ctrl.r)
+	if (game->ctrl.game.r.on)
 		angle = ROT_SPEED;
 	old_dir_x = game->player.dir_x;
 	old_cam_x = game->player.cam_x;
@@ -39,22 +41,22 @@ void	rotate(t_game *game)
 
 void	cross_pad(t_game *game, float *move_x, float *move_y)
 {
-	if (game->ctrl.w)
+	if (game->ctrl.game.w.on)
 	{
 		(*move_x) += game->player.dir_x * MOV_SPEED;
 		(*move_y) += game->player.dir_y * MOV_SPEED;
 	}
-	if (game->ctrl.s)
+	if (game->ctrl.game.s.on)
 	{
 		(*move_x) -= game->player.dir_x * MOV_SPEED;
 		(*move_y) -= game->player.dir_y * MOV_SPEED;
 	}
-	if (game->ctrl.d)
+	if (game->ctrl.game.d.on)
 	{
 		(*move_x) += game->player.cam_x * MOV_SPEED;
 		(*move_y) += game->player.cam_y * MOV_SPEED;
 	}
-	if (game->ctrl.a)
+	if (game->ctrl.game.a.on)
 	{
 		(*move_x) -= game->player.cam_x * MOV_SPEED;
 		(*move_y) -= game->player.cam_y * MOV_SPEED;

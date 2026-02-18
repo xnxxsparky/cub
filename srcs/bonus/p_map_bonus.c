@@ -1,16 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_map.c                                        :+:      :+:    :+:   */
+/*   p_map_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/18 21:05:17 by salabbe           #+#    #+#             */
-/*   Updated: 2025/12/22 21:40:05 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/02/18 12:54:11 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d_bonus.h"
+// #include "cub3d_bonus.h"
+
+#include "utils.h"
 
 char	**get_map(int fd, int *width, t_game *game)
 {
@@ -21,7 +23,7 @@ char	**get_map(int fd, int *width, t_game *game)
 	line = get_next_line(fd);
 	if (line == NULL)
 	{
-		error(MAP, NULL, game, FALSE);
+		error(MAP, NULL, game);
 		return (NULL);
 	}
 	(*width) = ft_strlen(line);

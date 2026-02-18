@@ -6,11 +6,17 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/18 21:05:03 by salabbe           #+#    #+#             */
-/*   Updated: 2025/12/22 21:39:27 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/02/17 23:05:27 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+// #include "cub3d.h"
+
+#ifndef BONUS
+# include "manda.h"
+#else
+# include "bonus.h"
+#endif
 
 int	check_name_file(char *filename)
 {
@@ -35,13 +41,13 @@ int	get_fd(char *filename, t_game *game)
 	if (fd > 0)
 	{
 		close(fd);
-		error(DIRECTORY, filename, game, FALSE);
+		error(DIRECTORY, filename, game);
 		return (-1);
 	}
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 	{
-		error(BAD_FILE, filename, game, FALSE);
+		error(BAD_FILE, filename, game);
 		return (-1);
 	}
 	return (fd);
@@ -55,14 +61,14 @@ static int	verify_paths(char *path, t_game *game)
 	if (fd > 0)
 	{
 		close(fd);
-		error(DIRECTORY, path, game, FALSE);
+		error(DIRECTORY, path, game);
 		return (-1);
 	}
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 	{
 		utl_super_free((void **)game->map.data_map);
-		error(BAD_FILE, path, game, TRUE);
+		error(BAD_FILE, path, game);
 		return (-1);
 	}
 	close(fd);

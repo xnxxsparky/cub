@@ -1,19 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_colors.c                                      :+:      :+:    :+:   */
+/*   window.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/18 21:03:52 by salabbe           #+#    #+#             */
-/*   Updated: 2025/12/18 21:05:34 by bcausseq         ###   ########.fr       */
+/*   Created: 2026/02/17 15:49:15 by bcausseq          #+#    #+#             */
+/*   Updated: 2026/02/18 00:31:08 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+ 
+#ifndef WINDOW_H
+# define WINDOW_H
 
-#include "cub3d_bonus.h"
+# define WIDTH 1280
+# define HEIGHT 720
 
-void	init_colors(t_game *game)
+# include "../third_parties/MLX/includes/mlx.h"
+# include "utils.h"
+
+typedef struct s_game t_game;
+
+typedef struct s_mlx
 {
-	game->colors.c_floor = NULL;
-	game->colors.c_ceiling = NULL;
-}
+	mlx_context				mlx_ctx;
+	mlx_window				win;
+	mlx_window_create_info	win_infos;
+	mlx_image				img;
+	mlx_color				*buf;
+	mlx_color				*old_buf;
+}	t_mlx;
+
+t_boolean
+init_mlx(t_game *game);
+
+#endif

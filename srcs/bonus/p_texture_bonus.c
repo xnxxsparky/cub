@@ -6,11 +6,13 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/13 19:02:35 by salabbe           #+#    #+#             */
-/*   Updated: 2026/01/22 17:51:16 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/02/18 02:11:34 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d_bonus.h"
+// #include "cub3d_bonus.h"
+
+#include "bonus.h"
 
 void	free_data_texture(t_colors *colors, t_texture *textures)
 {
@@ -44,14 +46,14 @@ static int	verify_data(t_game *game, int j)
 	if (game->map.data_map == NULL)
 	{
 		free_data_texture(&game->colors, &game->texture);
-		error(MAP, NULL, game, FALSE);
+		error(MAP, NULL, game);
 	}
 	get_player(&(game->map), &(game->player));
 	if (parse_colors(&game->colors) == 1)
 	{
 		utl_super_free((void **)game->map.data_map);
 		free_data_texture(&game->colors, &game->texture);
-		error(COLORS, NULL, game, FALSE);
+		error(COLORS, NULL, game);
 	}
 	else
 		return (0);

@@ -6,13 +6,13 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/30 22:09:57 by bcausseq          #+#    #+#             */
-/*   Updated: 2026/02/07 19:17:24 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/02/17 17:52:31 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d_bonus.h"
-#include "includes/libft.h"
-#include "mlx.h"
+// #include "cub3d_bonus.h"
+
+#include "bonus.h"
 
 void	key_bind(t_game *game)
 {
@@ -64,7 +64,7 @@ void	init_keybinds(t_game *game)
 void	keybind_draw(t_game *game)
 {
 	ft_bufcpy(game->mlx_ctx.old_buf, game->mlx_ctx.buf);
-	fifty_shade_of_grey(game);
+	fifty_shade_of_grey(game->mlx_ctx.buf);
 	mlx_clear_window(game->mlx_ctx.mlx_ctx, game->mlx_ctx.win,
 		(mlx_color){.rgba = 0x000000FF});
 	but_display(game, game->key_bind);

@@ -6,11 +6,13 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 00:07:21 by bcausseq          #+#    #+#             */
-/*   Updated: 2026/02/07 00:50:51 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/02/17 19:31:35 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d_bonus.h"
+// #include "cub3d_bonus.h"
+
+#include "bonus.h"
 
 void	init_cur_text(t_game *game, t_ray *ray)
 {

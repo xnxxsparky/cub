@@ -6,11 +6,13 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/18 21:05:29 by salabbe           #+#    #+#             */
-/*   Updated: 2025/12/18 21:05:34 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/02/17 19:43:59 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+// #include "cub3d.h"
+
+#include "draw.h"
 
 int	check_textures(t_texture *textures)
 {

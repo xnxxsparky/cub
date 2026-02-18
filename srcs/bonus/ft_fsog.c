@@ -6,13 +6,15 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 01:05:08 by bcausseq          #+#    #+#             */
-/*   Updated: 2026/01/31 01:05:45 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/02/17 17:51:27 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d_bonus.h"
+// #include "cub3d_bonus.h"
 
-void	fifty_shade_of_grey(t_game *game)
+#include "window.h"
+
+void	fifty_shade_of_grey(mlx_color *buf)
 {
 	int	x;
 	int	y;
@@ -24,7 +26,7 @@ void	fifty_shade_of_grey(t_game *game)
 		while (++x < WIDTH)
 		{
 			if (y >= 0 && y < HEIGHT && x >= 0 && x < WIDTH)
-				game->mlx_ctx.buf[y * WIDTH + x].a = 0x88;
+				buf[y * WIDTH + x].a = 0x88;
 		}
 		x = -1;
 	}

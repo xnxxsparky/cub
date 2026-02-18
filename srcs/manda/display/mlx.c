@@ -6,12 +6,37 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 00:23:50 by bcausseq          #+#    #+#             */
-/*   Updated: 2026/02/07 00:46:03 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/02/17 20:34:33 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
-#include "includes/libft.h"
+// #include "cub3d.h"
+
+#include "manda.h"
+
+void	init_keys(t_game *game)
+{
+	t_ctrl	ctrl;
+
+	ft_bzero(&ctrl, sizeof(t_ctrl));
+	ctrl.game.w.key = SDL_SCANCODE_W;
+	ctrl.game.a.key = SDL_SCANCODE_A;
+	ctrl.game.s.key = SDL_SCANCODE_S;
+	ctrl.game.d.key = SDL_SCANCODE_D;
+	ctrl.game.l.key = SDL_SCANCODE_LEFT;
+	ctrl.game.r.key = SDL_SCANCODE_RIGHT;
+	ctrl.game.oskour.key = SDL_SCANCODE_LALT;
+	ctrl.game.pause.key = SDL_SCANCODE_P;
+	ctrl.game.menu.key = SDL_SCANCODE_F1;
+	ctrl.game.escape.key = SDL_SCANCODE_ESCAPE;
+	ctrl.sett.l.key = SDL_SCANCODE_LEFT;
+	ctrl.sett.r.key = SDL_SCANCODE_RIGHT;
+	ctrl.sett.u.key = SDL_SCANCODE_UP;
+	ctrl.sett.d.key = SDL_SCANCODE_DOWN;
+	ctrl.sett.select.key = SDL_SCANCODE_RETURN;
+	ctrl.sett.ret.key = SDL_SCANCODE_BACKSPACE;
+	game->ctrl = ctrl;
+}
 
 t_boolean	init_mlx(t_game *game)
 {
@@ -28,6 +53,7 @@ t_boolean	init_mlx(t_game *game)
 	game->mlx_ctx.buf = ft_calloc(sizeof(mlx_color), HEIGHT * WIDTH);
 	if (!(game->mlx_ctx.buf))
 		return (FALSE);
+	init_keys(game);
 	game->mlx_ctx.img = mlx_new_image(game->mlx_ctx.mlx_ctx, WIDTH, HEIGHT);
 	return (TRUE);
 }

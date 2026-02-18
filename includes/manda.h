@@ -1,21 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_textures.c                                    :+:      :+:    :+:   */
+/*   manda.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/18 21:04:21 by salabbe           #+#    #+#             */
-/*   Updated: 2025/12/18 21:05:34 by bcausseq         ###   ########.fr       */
+/*   Created: 2026/02/17 19:38:44 by bcausseq          #+#    #+#             */
+/*   Updated: 2026/02/18 12:23:21 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#ifndef MANDA_H
+# define MANDA_H
 
-void	init_textures(t_game *game)
+# include "utils.h"
+# include "window.h"
+# include "draw.h"
+# include "controls.h"
+# include "game.h"
+
+typedef struct s_game
 {
-	game->texture.no.path = NULL;
-	game->texture.so.path = NULL;
-	game->texture.ea.path = NULL;
-	game->texture.we.path = NULL;
-}
+	t_texture			texture;
+	t_current_texture	cur_text;
+	t_map				map;
+	t_player			player;
+	t_mlx				mlx_ctx;
+	t_ctrl				ctrl;
+	t_colors			colors;
+	char				*filename;
+	int					fd;
+}	t_game;
+
+void
+clear_buffers(t_texture texture);
+
+#endif

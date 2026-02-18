@@ -6,11 +6,13 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 00:16:28 by bcausseq          #+#    #+#             */
-/*   Updated: 2026/01/30 23:30:20 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/02/17 19:26:10 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d_bonus.h"
+// #include "cub3d_bonus.h"
+
+#include "bonus.h"
 
 // void	key_hooks_dwn(int key, void *param)
 // {

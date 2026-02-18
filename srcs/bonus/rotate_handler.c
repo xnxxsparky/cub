@@ -6,11 +6,12 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 02:03:46 by bcausseq          #+#    #+#             */
-/*   Updated: 2026/02/04 19:46:24 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/02/17 18:10:58 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d_bonus.h"
+// #include "cub3d_bonus.h"
+#include "bonus.h"
 
 void	rotate_player(t_game *game, float angle)
 {

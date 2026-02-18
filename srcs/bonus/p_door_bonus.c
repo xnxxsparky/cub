@@ -6,11 +6,13 @@
 /*   By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 20:46:43 by salabbe           #+#    #+#             */
-/*   Updated: 2026/01/22 20:47:24 by bcausseq         ###   ########.fr       */
+/*   Updated: 2026/02/17 19:34:41 by bcausseq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d_bonus.h"
+// #include "cub3d_bonus.h"
+
+#include "bonus.h"
 
 static char	*set_data(char *line)
 {
@@ -54,7 +56,7 @@ static int	setter_data(t_game *game, int i, int j, char *sub)
 	{
 		free(sub);
 		free_data_texture(&game->colors, &game->texture);
-		error(MAP, NULL, game, FALSE);
+		error(MAP, NULL, game);
 	}
 	return (0);
 }
