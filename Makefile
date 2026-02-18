@@ -6,7 +6,7 @@
 #    By: bcausseq <bcausseq@42angouleme.fr>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/17 01:17:51 by bcausseq          #+#    #+#              #
-#    Updated: 2026/02/18 02:14:26 by bcausseq         ###   ########.fr        #
+#    Updated: 2026/02/18 13:40:04 by bcausseq         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 NAME := cub3D
@@ -61,10 +61,10 @@ LDFLAGS += $(MacroLibX_DEP)
 DEPFILES += $(MacroLibX_DEP)
 LDFLAGS += -lSDL2 -lm
 
-all:
+all: $(MacroLibX_DIR)
 	@$(MAKE) $(NAME) BONUS=0
 
-bonus:
+bonus: $(MacroLibX_DIR)
 	@$(MAKE) $(BNAME) BONUS=1
 
 $(MacroLibX_DIR):
@@ -85,7 +85,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 $(libft_DEP):
 	make -C $(libft_DIR) -j$(shell nproc)
 
-$(MacroLibX_DEP): $(MacroLibX_DIR)
+$(MacroLibX_DEP):
 	make -C $(MacroLibX_DIR) -j$(shell nproc)
 
 oclean:
@@ -97,9 +97,9 @@ clean: oclean
 
 fclean: oclean
 	make -C $(libft_DIR) fclean
-	make -C $(MacroLibX_DIR) fclean
 	rm -rf $(NAME)
 	rm -rf $(BNAME)
+	make -C $(MacroLibX_DIR) fclean
 
 re: fclean
 	@$(MAKE) -j$(shell nproc) $(NAME)
